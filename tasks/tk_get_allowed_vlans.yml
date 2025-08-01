@@ -1,0 +1,26 @@
+# - name: Include Task - Get Allowed VLANs
+#   include_tasks: '{{ task_path }}/tk_get_allowed_vlans.yml'
+
+- name: Format Data
+  vars:
+    interface: '{{ item.name }}'
+    allowed_vlans: "{{ item.trunk.allowed_vlans | replace(\"'\",'') | replace(', ','.') | replace('[','') | replace(']','') }}"
+    native_vlan: '{{ item.trunk.native_vlan }}'
+  set_fact:
+    csv_tmp: >
+      {{ inventory_hostname }},{{ interface }},{{ allowed_vlans }},{{ native_vlan }}
+  throttle: 1
+  when: 'item["mode"] is defined and item["mode"] == "trunk"'
+
+- name: Fill CSV
+  lineinfile:
+    insertafter: EOF
+    dest: '{{ report_path }}/{{ filename }}'
+    line: '{{ csv_tmp }}'
+  throttle: 1
+
+- name: Remove Blanks
+  lineinfile:
+    path: '{{ report_path }}/{{ filename }}'
+    state: absent
+    regex: '^\s*$'

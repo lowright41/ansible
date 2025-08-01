@@ -1,0 +1,14 @@
+# @author [Lucien Wright]
+# @create date [01-29-2023]
+# @desc [Host File - Win Servers]
+
+
+dhcp_1:
+  hosts:
+   WIN DHCP SERVER:
+    ansible_host: 192.168.50.52
+
+# dhcp_2:
+#   hosts:
+#    K0806-DTC-NETWFW-FW2:
+#     ansible_host: 10.176.90.12

@@ -1,0 +1,25 @@
+# Prompted VARs
+# var_prompt:
+#   - name: trunk_command
+#     prompt: "What command are you wanting to apply?"
+#     private: no
+
+
+# Include Command
+# - name: Include Task - Update Trunk Interface
+#   include_tasks: '{{ task_path }}/tk_update_interface_trunk.yml'
+
+- name: Gather L2 Interfaces
+  cisco.ios.ios_l2_interfaces:
+    config:
+    state: gathered
+  register: l2_interfaces
+ 
+- name: Update Trunk Interfaces
+  with_items: '{{ l2_interfaces["gathered"] }}'
+  ios_config:
+    lines: 
+      - "{{ trunk_command }}"
+    parents: "interface {{ item.name }}"
+    save_when: modified
+  when: 'item["mode"] is defined and item["mode"] == "trunk"'

@@ -1,0 +1,12 @@
+# group_vars/platform_cisco_3560cx.yml
+
+ios_image_path: '{{ ios_path }}'
+ios_image_name: '{{ ios_image_path }}/c3560cx-universalk9-mz.152-7.E12.bin'
+ansible_command_timeout: 3600
+
+# ↓ Define the expected filesize (in bytes) for each image you'll ever push
+expected_filesizes:
+  'c3560cx-universalk9-mz.152-7.E12.bin': 22970368
+
+expected_md5s:
+  'c3560cx-universalk9-mz.152-7.E12.bin': '39e232a6309e460f4d9eba9ca090031c'

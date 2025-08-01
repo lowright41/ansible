@@ -1,0 +1,80 @@
+# filename - pb_copy_ios.yml
+# @desc [Automation - Copy IOS image to Cisco Catalyst Series Switches]
+# @author [Lucien Wright]
+# @created [2025-05-30]
+# Recommended run command:
+# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_copy_ios.yml 
+
+---
+- name: Copy IOS to switches (with MD5 check)
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+    - ansible.netcommon
+
+  tasks:
+    - name: Fail early if ios_image_name is not defined
+      fail:
+        msg: "🚫 ios_image_name is not defined for host {{ inventory_hostname }}. Check your group_vars or inventory."
+      when: ios_image_name is not defined
+
+    - name: Derive image filename from full path (safe for all hosts)
+      set_fact:
+        ios_image_file: "{{ ios_image_name | basename }}"
+      when: ios_image_name is defined
+
+    - name: Set bootflash_path for debug/reference
+      set_fact:
+        bootflash_path: "flash:{{ ios_image_file }}"
+      when: ios_image_file is defined
+
+    - name: Enable SCP/SSH on switch
+      ios_config:
+        lines:
+          - ip scp server enable
+          - ip ssh version 2
+
+    - name: Prevent VTY timeout
+      ios_config:
+        parents: [line vty 0 4]
+        lines: [exec-timeout 0 0]
+
+    - name: Verify image exists on controller
+      stat:
+        path: "{{ ios_image_path }}/{{ ios_image_file }}"
+      register: image_stat
+      delegate_to: localhost
+
+    - name: Fail if IOS image not found
+      fail:
+        msg: "🚫 Image {{ ios_image_file }} not found at {{ ios_image_path }}"
+      when: not image_stat.stat.exists
+
+    - name: Include Task - Check if image is present and valid
+      include_tasks: "{{ task_path }}/tk_verify_md5.yml"
+
+    - name: Debug image check result
+      debug:
+        msg: "🟢 Skipping copy — {{ ios_image_file }} already on {{ inventory_hostname }} with matching MD5"
+      when: image_is_valid_md5 | default(false)
+
+    - name: Copy IOS image to device
+      net_put:
+        src: "{{ ios_image_path }}/{{ ios_image_file }}"
+        dest: "flash:{{ ios_image_file }}"
+        timeout: "{{ ansible_command_timeout | default(3600) }}"
+      when: not image_is_valid_md5 | default(false)
+
+    - name: Restore VTY timeout
+      ios_config:
+        parents: [line vty 0 4]
+        lines: [exec-timeout 60 0]
+
+    - name: Disable SCP server
+      ios_config:
+        lines: [no ip scp server enable]
+
+    - name: Include Task - Write Config
+      include_tasks: "{{ task_path }}/tk_write_config.yml"

@@ -1,0 +1,29 @@
+# Include Command
+# - name: Include Task - Add Netflow Configuration
+#   include_tasks: '{{ task_path }}/tk_add_netflow.yml'
+
+- name: Include Task - Get Device Info
+  include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+
+- name: Netflow Configuration
+  block:
+    - name: Add Netflow Configuration Template
+      ios_config:
+        src: "{{ config_path }}/cg_netflow.j2"
+        save_when: modified
+
+    - name: Gather L2 Interfaces
+      cisco.ios.ios_l2_interfaces:
+        config:
+        state: gathered
+      register: l2_interfaces
+    
+    - name: Update Trunk Interfaces
+      with_items: '{{ l2_interfaces["gathered"] }}'
+      ios_config:
+        lines: 
+          - "ip flow monitor NTAMONITOR input"
+        parents: "interface {{ item.name }}"
+        save_when: modified
+      when: 'item["mode"] is defined and item["mode"] == "trunk"'
+  when: netflow # Check to see if the netflow variable (set in device group_vars) is set to 'true'

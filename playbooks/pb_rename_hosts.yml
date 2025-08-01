@@ -1,0 +1,26 @@
+---
+# playbooks/rename_hosts.yml
+- name: Push new hostnames to devices
+  hosts: all
+  gather_facts: no
+  connection: network_cli
+
+  tasks:
+    - name: Set hostname on IOS devices
+      ios_config:
+        lines:
+          - hostname {{ inventory_hostname }}
+      when: ansible_network_os == 'ios'
+
+    - name: Set hostname on NX-OS devices
+      nxos_config:
+        lines:
+          - hostname {{ inventory_hostname }}
+      when: ansible_network_os == 'nxos'
+
+    - name: Report result
+      debug:
+        msg: "Hostname on {{ ansible_host }} set to {{ inventory_hostname }}"
+
+    - name: Include Task - Write Config
+      include_tasks: '{{ task_path }}/tk_write_config.yml'

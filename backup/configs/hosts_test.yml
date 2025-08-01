@@ -1,0 +1,203 @@
+# @author [Lucien Wright]
+# @create date [01-14-2022]
+# @desc [Host File - Default Inventory File]
+
+---
+
+nxos:
+  hosts:
+   K0806-DTC-CORE01-VDC_90.1:
+    ansible_host: 192.168.90.1
+   K0806-DTC-CORE01-SWI_100.100:
+    ansible_host: 192.168.100.100
+
+local:
+  hosts:
+   K1010-DTC-DIST01-SWI_90.2:
+    ansible_host: 192.168.90.2
+   K0806-018-MGMTSW-SWI_90.5:
+    ansible_host: 192.168.90.5
+   K0806-DTC-SCHLVM-SWI_90.6:
+    ansible_host: 192.168.90.6
+   K0806-DTC-SRVRA1-SW1_90.7:
+    ansible_host: 192.168.90.7
+   K0806-DTC-SRVRA1-SW2_90.8:
+    ansible_host: 192.168.90.8
+   K0806-CAB-TECHRM-SWI_90.9:
+    ansible_host: 192.168.90.9
+   K0806-CAB-TECHRM-SWI_90.10:
+    ansible_host: 192.168.90.10
+   K1759-CAB-ARMYCO-SWI_90.48:
+    ansible_host: 192.168.90.48
+  #  K0687-CAB-SECOFF-SWI_90.59:
+  #   ansible_host: 192.168.90.59
+   K0712-CAB-RMIHNZ-SWI_90.64:
+    ansible_host: 192.168.90.64
+   K0813-CAB-DPWOFF-SWI_90.65:
+    ansible_host: 192.168.90.65
+   K0703-112-LAUNDR-SWI_90.66:
+    ansible_host: 192.168.90.66
+   K0807-COM-POLICE-SWI_90.72:
+    ansible_host: 192.168.90.72
+   K0563-001-CORALQ-SWI_90.73:
+    ansible_host: 192.168.90.73
+   K0844-COM-ENGINE-SWI_90.74:
+    ansible_host: 192.168.90.74
+   K0301-CAB-SURFWY-SWI_90.76:
+    ansible_host: 192.168.90.76
+   K0357-CAB-SAFETY-SWI_90.77:
+    ansible_host: 192.168.90.77
+   K0602-CLO-BACKOF-SWI_90.78:
+    ansible_host: 192.168.90.78
+   K0908-CAB-KLODGE-SWI_90.80:
+    ansible_host: 192.168.90.80
+   K0993-2FL-WARHSE-SWI_90.81:
+    ansible_host: 192.168.90.81
+   K0805-COM-AFNCLO-SWI_90.82:
+    ansible_host: 192.168.90.82
+   K0805-CAB-GCARTS-SWI_90.83:
+    ansible_host: 192.168.90.83
+   K0808-CAB-AUTOMO-SWI_90.84:
+    ansible_host: 192.168.90.84
+   K0856-COM-AUTOBD-SWI_90.85:
+    ansible_host: 192.168.90.85
+   K0636-COM-COLDST-SWI_90.86:
+    ansible_host: 192.168.90.86
+   K0301-CEI-SRFCAM-SWI_90.87:
+    ansible_host: 192.168.90.87
+   K0760-COM-CUSTOD-SWI_90.88:
+    ansible_host: 192.168.90.88
+   K0993-OFF-WARHSE-SWI_90.89:
+    ansible_host: 192.168.90.89
+   K0511-CAB-ADULTR-SWI_90.92:
+    ansible_host: 192.168.90.92
+   K0804-COM-OFFICE-SWI_90.93:
+    ansible_host: 192.168.90.93
+   K0804-CLO-HLPDSK-SWI_90.94:
+    ansible_host: 192.168.90.94
+   K0702-KIO-KIOSK1-SWI_90.95:
+    ansible_host: 192.168.90.95
+   K0706-OFF-POSTOF-SWI_90.96:
+    ansible_host: 192.168.90.96
+   R8035-DTC-RTERMN-SWI_90.100:
+    ansible_host: 192.168.90.100
+   R8350-CAB-RPOWER-SWI_90.103:
+    ansible_host: 192.168.90.103
+   R8051-DSK-ROWHSE-SWI_90.104:
+    ansible_host: 192.168.90.104
+   R8224-CAB-ROCART-SWI_90.105:
+    ansible_host: 192.168.90.105
+   R8015-CAB-CAFERO-SW1_90.106:
+    ansible_host: 192.168.90.106
+   R8015-FLO-CAFERO-SW2_90.107:
+    ansible_host: 192.168.90.107
+   R8016-CAB-BILLET-SWI_90.108:
+    ansible_host: 192.168.90.108
+   R8023-BAC-FIREST-SWI_90.109:
+    ansible_host: 192.168.90.109
+   R8154-CAB-OMWARE-SWI_90.111:
+    ansible_host: 192.168.90.111
+   R8375-FLO-TRADES-SWI_90.115:
+    ansible_host: 192.168.90.115
+
+vectrus:
+  hosts:
+   K0700-CAB-HROFFI-SWI_90.200:
+    ansible_host: 192.168.90.200
+   K0735-CLO-HDSHED-SWI_90.201:
+    ansible_host: 192.168.90.201
+   K0702-COM-FINANC-SWI_90.202:
+    ansible_host: 192.168.90.202
+   K0602-COM-LOGIST-SWI_90.203:
+    ansible_host: 192.168.90.203
+
+medical:
+  hosts:
+   K0603-231-HOSPCR-SW2_90.45:
+    ansible_host: 192.168.90.45
+   K0699-CAB-RADIOL-SWI_90.46:
+    ansible_host: 192.168.90.46
+   K0566-CAB-VETEXM-SWI_90.47:
+    ansible_host: 192.168.90.47
+   K0357-2FL-DENTIS-SWI_90.49:
+    ansible_host: 192.168.90.49
+   K0603-133-HOSPCM-SW1_90.56:
+    ansible_host: 192.168.90.56
+   K0603-133-HOSPCM-SW2_90.57:
+    ansible_host: 192.168.90.57
+
+school:
+  hosts:
+   K0352-013-ESCLAB-SWI_90.17:
+    ansible_host: 192.168.90.17
+   K0352-017-ESLITL-SWI_90.20:
+    ansible_host: 192.168.90.20
+   K0362-COM-HSMPRM-SWI_90.21:
+    ansible_host: 192.168.90.21
+   K0361-COM-HS2FLR-SW1_90.22:
+    ansible_host: 192.168.90.22
+   K0361-105-HSCLAB-SWI_90.23:
+    ansible_host: 192.168.90.23
+   K0362-CAB-HSLAB2-SWI_90.24:
+    ansible_host: 192.168.90.24
+   K0362-CAB-HSLAB2-SWI_90.25:
+    ansible_host: 192.168.90.25
+   K0361-COM-HS2FLR-SW2_90.26:
+    ansible_host: 192.168.90.26
+   K0352-018-ESGYMO-SWI_90.28:
+    ansible_host: 192.168.90.28
+   K0360-CAB-HSCOUN-SW1_90.29:
+    ansible_host: 192.168.90.29
+   K1890-CAB-TEENCE-SWI_90.33:
+    ansible_host: 192.168.90.33
+   K0342-029-ESCOCO-SWI_90.34:
+    ansible_host: 192.168.90.34
+   K0351-CAB-ESCLOS-SWI_90.35:
+    ansible_host: 192.168.90.35
+   K0352-010-ESCLAS-SWI_90.36:
+    ansible_host: 192.168.90.36
+   K0368-114-ESOFFI-SWI_90.37:
+    ansible_host: 192.168.90.37
+   K0355-CLO-ESNVRR-SWI_90.38:
+    ansible_host: 192.168.90.38
+
+webMGMT:
+  hosts:
+   K0703-107-ZAMPOF-SWI_90.67:
+    ansible_host: 192.168.90.67
+   K1418-STO-SNAKPT-SWI_90.69:
+    ansible_host: 192.168.90.69
+   K1791-CAB-SELFHE-SWI_90.75:
+    ansible_host: 192.168.90.75
+   R8250-CAB-RSURFW-SWI_90.102:
+    ansible_host: 192.168.90.102
+# Note:
+# The following does not work with backup_switch.yml
+# Web mgmt only
+#
+#    K0358-CAB-CYSREG-SWI_90.31:
+#     ansible_host: 192.168.90.31
+  #  K0703-137-BAKERY-SWI_90.68:
+  #   ansible_host: 192.168.90.68
+#    K0712-CAB-BSALON-SWI_90.70:
+#     ansible_host: 192.168.90.70
+#    K0835-115-MARSHL-SWI_90.71:
+#     ansible_host: 192.168.90.71
+
+cmiNet:
+  children:
+   local:
+   vectrus:
+   medical:
+   school:
+   webMGMT:
+
+cmiNet_config:
+  children:
+   local:
+   vectrus:
+   medical:
+   school:
+
+# Information on ansible-vault can be found below:
+# https://docs.ansible.com/ansible/latest/user_guide/vault.html

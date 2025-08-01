@@ -1,0 +1,27 @@
+# filename: pb_configure_syslog.yml
+# @desc: Push syslog logging configuration to Cisco IOS switches
+
+---
+- name: Configure syslog logging on Cisco IOS switches
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+
+  tasks:
+    - name: Configure syslog settings
+      ios_config:
+        lines:
+          - logging host 192.168.100.20
+          - logging trap informational
+          - logging source-interface Vlan90
+          - no logging console
+          - no logging monitor
+          - logging trap warnings
+          - logging buffered 8192 informational
+          - service timestamps log datetime msec
+          - service sequence-numbers
+
+    - name: Include Task - Write Config
+      include_tasks: '{{ task_path }}/tk_write_config.yml'

@@ -1,0 +1,13 @@
+# @author [Lucien Wright]
+# @create date [01-13-2022]
+# @desc [Automation - Configuring Switches]
+
+---
+- hosts: cmiNet
+
+  tasks:
+   - name: Save All Config
+     ios_config:
+       save_when: always
+
+#End of codes

@@ -1,0 +1,38 @@
+# filename - tk_verify_md5.yml
+# @desc [Automation - Verify MD5 Checksum of IOS Image]
+# @author [Lucien Wright]
+# @created [2025-06-10]
+# Include Command:
+# - name: Include Task - Verify File Exists
+#   include_tasks: '{{ task_path }}/tk_verify_md5.yml'
+
+    - name: Derive image filename from full path
+      set_fact:
+        ios_image_file: "{{ ios_image_name | basename }}"
+
+    - name: Set expected MD5 hash from group var
+      set_fact:
+        expected_md5: "{{ expected_md5s[ios_image_file] }}"
+      when: ios_image_file in expected_md5s
+
+    - name: Run MD5 checksum verification on the image
+      ios_command:
+        commands:
+          - verify /md5 flash:{{ ios_image_file }}
+      register: md5_output
+      ignore_errors: true
+
+    - name: Debug raw MD5 output
+      debug:
+        var: md5_output.stdout[0]
+      when: md5_output is defined and not md5_output.failed
+
+    - name: Extract computed MD5 hash from output
+      set_fact:
+        actual_md5: "{{ (md5_output.stdout[0] | regex_search('=\\s*([a-fA-F0-9]+)', '\\1'))[0] }}"
+      when: md5_output is defined and not md5_output.failed
+
+    - name: Set image validity based on MD5
+      set_fact:
+        image_is_valid_md5: true
+      when: actual_md5 is defined and actual_md5 == expected_md5

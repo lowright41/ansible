@@ -1,0 +1,13 @@
+---
+- hosts: all
+
+  tasks:
+   - name: backup config
+     ios_command:
+       commands: show run
+     register: config
+
+   - name: Save output to /etc/ansible/misc folder
+     copy:
+       content: "{{ config.stdout[0] }}"
+       dest: /etc/ansible/misc/config_{{ ansible_net_hostname }}.txt

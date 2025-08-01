@@ -1,0 +1,10 @@
+# Include Task
+# - name: Include Task - Push Software
+#   include_tasks: '{{ task_path }}/tk_push_software.yml'
+
+- name: Push Software // 50 Min Timeout
+  net_put:
+    src: '{{ source }}/{{ update_file }}'
+    dest: '{{ dir }}:{{ update_file }}'
+  vars:
+    ansible_command_timeout: 3000 # Timeout in seconds

@@ -1,0 +1,6 @@
+---
+
+ansible_connection: "local"
+ansible_user: "netadmin"
+ansible_network_os: "ios"
+ansible_ssh_pass: "Kw@j1$H0T&Su()y"

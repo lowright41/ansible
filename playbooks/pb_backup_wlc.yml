@@ -1,0 +1,36 @@
+---
+# filename - pb_backup_save_config.yml
+# @author [Lucien Wright]
+# @create date [04-11-2025]
+# @desc [Automation - Backup Cisco Switches]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_backup_save_config.yml
+
+- name: Backup Cisco WLC config
+  hosts: all
+  gather_facts: false
+  vars:
+    wlc_user: admin
+    wlc_pass: "Kw@jIsHoT&$uNNy"
+    tftp_server: 192.168.100.20
+    remote_filename: "WLC_config_{{ inventory_hostname }}.cfg"
+
+  tasks:
+    - name: Initiate backup via expect
+      expect:
+        command: ssh {{ wlc_user }}@{{ inventory_hostname }}
+        responses:
+          'Password:': "{{ wlc_pass }}"
+          '.*#': |
+            transfer upload mode tftp
+            transfer upload datatype config
+            transfer upload filename {{ remote_filename }}
+            transfer upload serverip {{ tftp_server }}
+            transfer upload start
+            y
+            exit
+      register: wlc_output
+
+    - name: Print WLC backup response
+      debug:
+        var: wlc_output.stdout_lines

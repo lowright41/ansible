@@ -1,0 +1,19 @@
+# Include Command
+# - name: Include Task - Get Device Info
+#   include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+
+- name: Getting Device Information (IOS)
+  ios_facts:
+    gather_subset:
+      - min
+      - hardware
+  register: net_ios_facts
+  when: ansible_network_os == 'ios'
+  
+- name: Getting Device Information (NXOS)
+  nxos_facts:
+    gather_subset:
+      - min
+      - hardware
+  register: net_nxos_facts
+  when: ansible_network_os == 'nxos'

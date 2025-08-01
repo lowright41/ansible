@@ -1,0 +1,30 @@
+# Include Command
+# - name: Include Task - Get L3 Switch
+#   include_tasks: '{{ task_path }}/tk_get_l3switch.yml'
+
+- name: Set VAR
+  set_fact:
+    l3_var: false
+
+- name: Gather Information to Determine if L3 Switch
+  block:
+    - name: Get Running-Config (Gateway)
+      ios_command:
+        commands:
+          - show running-config | include ip default-gateway
+      register: gateway_var
+    
+    - name: Get Running-Config (IP Route)
+      ios_command:
+        commands:
+          - show running-config | include ip route 0.0.0.0
+      register: route_var
+    
+    - name: Set L3 Var
+      set_fact:
+        l3_var: true
+      when: 
+        - gateway_var is not search('ip default-gateway')
+        - route_var is not search('ip route 0.0.0.0')
+
+  when: group_names is search('switch')

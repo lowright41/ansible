@@ -1,0 +1,13 @@
+---
+- hosts: local
+
+  tasks:
+   - name: Show Version
+     ios_command:
+       commands: show version
+     register: version
+
+   - name: Save output to /etc/ansible/misc folder
+     copy:
+       content: "{{ version.stdout[0] }}"
+       dest: /etc/ansible/misc/{{ ansible_net_hostname }}.txt

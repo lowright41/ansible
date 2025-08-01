@@ -1,0 +1,48 @@
+---
+- name: Report CDP Neighbors
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+    cross: []
+  
+  tasks:
+    - name: Include Task - Get Timestamp
+      include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+      run_once: true
+
+    - name: Include Task - Get Interface Info
+      include_tasks: '{{ task_path }}/tk_get_interface_info.yml'
+
+    - name: Create Cross-Reference VAR
+      set_fact:
+        cross: '{{ cross + [item[0]] | product(item[1]) | list }}'
+      loop: '{{ ansible_net_neighbors.items() | list }}'
+
+    - name: Set Filename VAR
+      set_fact:
+        filename: 'CDP Neighbors@{{ timestamp }}.csv'
+      run_once: true
+
+    - name: Create CSV
+      lineinfile:
+        dest: '{{ report_path }}/{{ filename }}'
+        line:
+          Hostname,Source Interface,Neighbor,Destination Interface
+        create: yes
+      run_once: true
+
+    - name: Fill CSV
+      lineinfile:
+        insertafter: EOF
+        dest: '{{ report_path }}/{{ filename }}'
+        line: '{{ inventory_hostname }},{{ item[0] }},{{ item[1].host }},{{ item[1].port }}' # Exports lines of information to a CSV
+      throttle: 1
+      loop: '{{ cross }}'
+    
+    - name: Remove Blanks
+      lineinfile:
+        path: '{{ report_path }}/{{ filename }}'
+        state: absent
+        regex: '^\s*$'

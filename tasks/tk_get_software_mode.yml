@@ -1,0 +1,13 @@
+# Include Command
+# - name: Include Task - Get Software Mode
+#   include_tasks: '{{ task_path }}/tk_get_software_mode.yml'
+
+- name: INSTALL Mode Applied # Checking the current running image for INSTALL mode
+  set_fact:
+    software_mode: 'install'
+  when: ansible_net_image is search('.conf')
+
+- name: BUNDLE Mode Applied # Checking the current running image for BUNDLE mode as long as it isn't an NXOS device
+  set_fact:
+    software_mode: 'bundle'
+  when: software_mode != 'nxos' and ansible_net_image is search('.bin')

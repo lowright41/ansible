@@ -1,0 +1,15 @@
+# @author [Lucien Wright]
+# @create date [01-12-2022]
+# @desc [Host File - Tester Inventory File]
+
+
+[wlc]
+192.168.90.51
+192.168.90.52
+
+# wlc:
+#   hosts:
+#    Cisco Controller:
+#     ansible_host: 192.168.90.51
+#    Cisco Controller-Standby:
+#     ansible_host: 192.168.90.52

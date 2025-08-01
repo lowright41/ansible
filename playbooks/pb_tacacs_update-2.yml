@@ -1,0 +1,43 @@
+# filename: pb_configure_syslog.yml
+# @desc: Push syslog logging configuration to Cisco IOS switches
+
+---
+- name: Configure syslog logging on Cisco IOS switches
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+
+  tasks:
+    - name: Configure syslog settings
+      ios_config:
+        lines:
+          - no aaa group server radius MGMT-RADIUS
+          - no aaa group server tacacs+ {{ tacacs_mgmt }}
+          - no aaa authentication login default
+          - no logging console
+          - no aaa authentication login CONSOLE-AUTH local
+          - no aaa authentication enable default 
+          - no aaa authorization config-commands
+          - no aaa accounting exec default
+          - no aaa accounting commands 15 default
+          - no aaa accounting connection default
+          - no aaa accounting system default 
+          - aaa  group server tacacs+ {{ tacacs_mgmt }}
+          - server name {{ tacacs_srvr_name }}
+          - aaa  authentication login default group {{ tacacs_mgmt }} local
+          - aaa  authentication login CONSOLE-AUTH local
+          - aaa  authorization exec default group {{ tacacs_mgmt }} local 
+          - aaa  accounting exec default start-stop group {{ tacacs_mgmt }} 
+          - aaa  accounting commands 15 default start-stop group {{ tacacs_mgmt }}
+          - tacacs server {{ tacacs_srvr_name }}
+          - address ipv4 {{ tacacs_srvr_ip }}	
+          - key {{ tacacs_key }}
+          - line con 0
+          - privilege level 15
+          - login authentication CONSOLE-AUTH
+          - stopbits 1
+          
+    - name: Include Task - Write Config
+      include_tasks: '{{ task_path }}/tk_write_config.yml'

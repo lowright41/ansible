@@ -1,0 +1,12 @@
+# group_vars/platform_cisco_9300.yml
+
+ios_image_path: '{{ ios_path }}'
+ios_image_name: '{{ ios_image_path }}/cat9k_iosxe.17.12.05.SPA.bin'
+ansible_command_timeout: 3600
+
+# ↓ Define the expected filesize (in bytes) for each image you'll ever push
+expected_filesizes:
+  'cat9k_iosxe.17.12.05.SPA.bin': 1312262395 
+
+expected_md5s:
+  'cat9k_iosxe.17.12.05.SPA.bin': 'e032ebc5e8a9e050635a9b9d97dba49c'

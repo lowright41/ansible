@@ -1,0 +1,17 @@
+# Include Command
+# - name: Include Task - Backup Config
+#   include_tasks: '{{ task_path }}/tk_backup_config_panos.yml'
+
+---
+- name: Backup PAN-OS Configuration
+  block:
+    - name: Export PA running configuration
+      paloaltonetworks.panos.panos_export:
+        provider:
+          ip_address: "{{ ansible_host }}"
+          username: "{{ ansible_user }}"
+          password: "{{ ansible_ssh_pass }}"
+        category: configuration
+        filename: "{{ server_path }}/{{ inventory_hostname }}.xml"
+      register: export_result
+  when: ansible_network_os == 'panos'

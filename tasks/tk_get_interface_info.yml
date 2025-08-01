@@ -1,0 +1,17 @@
+# Include Command
+# - name: Include Task - Get Interface Info
+#   include_tasks: '{{ task_path }}/tk_get_interface_info.yml'
+
+- name: Getting Interface Information (IOS)
+  ios_facts:
+    gather_network_resources:
+      - l2_interfaces
+  register: net_ios_int_facts
+  when: ansible_network_os == 'ios'
+  
+- name: Getting Interface Information (NXOS)
+  nxos_facts:
+    gather_network_resources:
+      - l2_interfaces
+  register: net_nxos_int_facts
+  when: ansible_network_os == 'nxos'

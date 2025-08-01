@@ -1,0 +1,36 @@
+# Include Command
+# - name: Include Task - Get Stack Count
+#   include_tasks: '{{ task_path }}/tk_get_stack_count.yml'
+
+- name: Get Stack Count
+  block:
+    - name: Get Stack Count
+      block:
+        - name: Show Switch Command - Filtered Ready
+          cli_command:
+            command: show switch | include Ready
+          register: show_switch_result
+
+        - name: Save Stack Count
+          set_fact:
+            stack_count: '{{ show_switch_result.stdout_lines | length }}'
+
+      rescue:
+        - name: Set Default Stack Count
+          set_fact:
+            stack_count: '1'
+
+    #   always:
+    #     - name: Display Stack Count
+    #       debug:
+    #         msg:
+    #           - 'STACK COUNT: {{ stack_count }}'
+    
+    # - name: Count Up
+    #   debug:
+    #     msg:
+    #       - 'Stack #{{ item }}'
+    #   with_sequence: start=2 end={{ stack_count }}
+    #   ignore_errors: true
+
+  when: '"switch" in group_names'

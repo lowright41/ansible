@@ -1,0 +1,36 @@
+# filename - config_ios-upgrade.yml
+# @author [Lucien Wright]
+# @create date [03-07-2024]
+# @desc [Automation - Configuring Switches]
+
+---
+- hosts: cmiNet
+
+  tasks:
+   - name: Update IOS
+     ios_config:
+       lines:
+        - archive download-sw /overwrite /reload tftp://192.168.50.202/c1000-universalk9-tar.152-7.E9.tar
+      # parents: line vty 5 15
+       match: none
+
+   - name: Save the config when above task completes
+     ios_config:
+       save_when: always
+
+# - hosts: nxos
+
+  # tasks:
+  #  - name: Before anything, remove access-list 1  
+  #    nxos_config:
+  #      before: no access-list 1
+
+  #  - name: Configure multiple lines of code from text file
+  #    nxos_config:
+  #      src: /etc/ansible/configs/config_acl1.txt
+
+  #  - name: Save the config when above task completes
+  #    nxos_config:
+  #      save_when: always
+
+#End of codes

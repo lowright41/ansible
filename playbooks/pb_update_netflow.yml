@@ -1,0 +1,30 @@
+---
+- name: Update Netflow Configuration
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  order: sorted
+
+  vars_prompt:
+    - name: 'choice'
+      prompt: 'Do you want to [add] or [remove] Netflow?'
+      private: no
+
+  tasks:
+    - name: Input Validation
+      assert:
+        that: choice == 'add' or choice == 'remove'
+        fail_msg: "Please check your input, the playbook was looking for 'add' or 'remove'."
+        quiet: true
+        
+    - name: Netflow Configuration
+      block:
+        - name: Include Task - Add Netflow Configuration
+          include_tasks: '{{ task_path }}/tk_add_netflow.yml'
+          when: choice == 'add'
+
+        - name: Include Task - Remove Netflow Configuration
+          include_tasks: '{{ task_path }}/tk_remove_netflow.yml'
+          when: choice == 'remove'
+
+        

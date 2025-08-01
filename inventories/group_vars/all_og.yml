@@ -1,0 +1,67 @@
+---
+ansible_user: netadmin
+ansible_network_os: ios
+ansible_connection: network_cli
+ansible_ssh_pass: Kw@j1$C0LDandW3T!
+
+# Path Variables
+abs_path: '/etc/ansible' # Main path variable for referencing
+task_path: '{{ abs_path }}/tasks' # Path variable for task location
+config_path: '{{ abs_path }}/configurations' # Path variable for configuration location
+playbook_path: '{{ abs_path }}/playbooks' # Path variable for playbook location
+var_path: '{{ abs_path }}/vars' # Path variable for variable location
+report_path: '{{ abs_path }}/reports' # Path variable for report location
+server_path: '/media/cmiNet' # Path variable to fileserver
+tftp_path: '/media/netAdmin/tftp_netAdmin' # Path tftp server
+
+# RADIUS Variables
+radius_name:     'NETRADIUS01'
+radius_host:      192.168.50.60
+radius_auth_port: 1812
+radius_acct_port: 1813
+radius_key:       '*$r@DIU$_IQ-KEY'
+
+# MySQL Variables
+# mysql_host: 192.168.100.20
+mysql_host: 192.168.50.20
+mysql_port: 3306
+mysql_user: ansible
+mysql_password: '40F94as$k11&4A'
+mysql_db: CMI
+
+# Global Variables
+null_vlan: '999'
+management_interface: 'Vlan90'
+
+## Netflow Variables
+netflow_server: '192.168.50.107'
+
+## SNMP Variables
+snmp_auth: 'Gr33n0cean5@981'
+snmp_priv: 'VBNfPRIVl456$%^'
+snmp_read_group: 'snmp-v3-ReadOnly'
+snmp_write_group: 'snmp-v3-ReadWrite'
+snmp_read_view: 'snmp-v3-ReadOnly-View'
+snmp_write_view: 'snmp-v3-ReadWrite-View'
+snmp_read_user: 'snmp-read-user'
+snmp_write_user: 'snmp-write-user'
+
+####################################################################
+####################################################################
+####################################################################
+
+# # Catalyst IOS Variables
+# ios_image_path: '{{ playbook_path }}/files' # Path variable ios images
+# catalyst_9200l: '{{ ios_image_path }}/cat9k_lite_iosxe.17.12.05.SPA.bin'
+# # catalyst_3560cx: '{{ ios_image_path }}/c3560cx-universalk9-mz.152-7.E12.bin'
+# catalyst_3650: '{{ ios_image_path }}/cat3k_caa-universalk9.16.12.13.SPA.bin'
+# catalyst_3850: '{{ ios_image_path }}/cat3k_caa-universalk9.16.12.13.SPA.bin'
+# catalyst_1000: '{{ ios_image_path }}/c1000-universalk9-mz.152-7.E12.bin'
+
+# ↓ Define the expected filesize (in bytes) for each image you'll ever push
+# expected_filesizes:
+#   '{{ catalyst_9200l }}': 470819491
+#   # '{{ catalyst_3560cx }}': 22970368
+#   '{{ catalyst_3650 }}': 482676423
+#   '{{ catalyst_3850 }}': 482676423
+#   '{{ catalyst_1000 }}': 16507904

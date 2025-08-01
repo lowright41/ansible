@@ -1,0 +1,427 @@
+Building configuration...
+
+Current configuration : 12177 bytes
+!
+! Last configuration change at 13:06:28 KWA Tue Apr 8 2025 by netadmin
+! NVRAM config last updated at 13:06:29 KWA Tue Apr 8 2025 by netadmin
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec localtime
+service timestamps log datetime msec localtime
+service password-encryption
+!
+hostname M5029-CLO-FIREST-SWI_90.232
+!
+boot-start-marker
+boot-end-marker
+!
+logging userinfo
+logging buffered 40960
+enable secret 5 $1$4Ohr$YA/iFnAPQ8GezXRxQRIOx/
+!
+username netadmin privilege 15 secret 5 $1$4Ohr$YA/iFnAPQ8GezXRxQRIOx/
+username jelani.davis privilege 15 secret 5 $1$C/83$tTa5NzUkHp.WkLYaGojOm/
+username lucien.wright privilege 15 secret 5 $1$lVV5$1Kt.WD7EqVFzKU348lO3/0
+username adam.jameel privilege 15 secret 5 $1$uj3E$Zr0kHc2.3N6.LLxly8zQy0
+username robert.parsons privilege 15 secret 5 $1$dLAR$SkkU5YAoTlZqDBwvntJEC0
+aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+aaa session-id common
+clock timezone KWA 12 0
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+no ip dhcp snooping information option
+no ip dhcp snooping verify no-relay-agent-address
+no ip domain-lookup
+ip domain-name kwajalein.local
+ip name-server 192.168.50.50
+ip name-server 192.168.50.59
+login on-failure log
+login on-success log
+vtp mode transparent
+!
+!
+!
+!
+!
+!
+udld enable
+
+!
+!
+!
+archive
+ log config
+  logging enable
+!
+spanning-tree mode rapid-pvst
+spanning-tree portfast edge bpduguard default
+no spanning-tree optimize bpdu transmission
+spanning-tree extend system-id
+!
+!
+!
+!
+!
+vlan 15
+ name KJ-MGMT_WIFI-MGMT
+!
+vlan 72
+ name KJ-GOV_MERCHANT_PRINTERS
+!
+vlan 90
+ name KJ-MGMT_NET_NODE_MGMT
+!
+vlan 112
+ name KJ-GOV_KWAJ_USERS
+!
+vlan 200
+ name KJ-VECT_USERS
+!
+vlan 777
+ name L2_NATIVE
+!
+vlan 999
+ name L2_PARKING_LOT
+ state suspend
+ shutdown
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/1
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/2
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/3
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/4
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/5
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/6
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/7
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/8
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/9
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/10
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/11
+ description CMI WAP
+ switchport access vlan 15
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky c828.e56c.533c
+ switchport port-security
+ ip arp inspection limit rate 500
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/12
+ description CMI WAP
+ switchport access vlan 15
+ switchport mode access
+!
+interface GigabitEthernet0/13
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/14
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface GigabitEthernet0/15
+ description TRUNK TO M5050-154-DIST03-SWI_90.230 - G1/0/25
+ switchport trunk allowed vlan 15,72,90,112,200
+ switchport trunk native vlan 777
+ switchport mode trunk
+ switchport nonegotiate
+ ip arp inspection trust
+ logging event trunk-status
+ logging event spanning-tree
+ ip dhcp snooping trust
+!
+interface GigabitEthernet0/16
+ description //NOT IN USE 04/05/2025//
+ switchport access vlan 999
+ switchport mode access
+ switchport nonegotiate
+ switchport block unicast
+ switchport port-security mac-address sticky
+ switchport port-security
+ ip arp inspection limit rate 500
+ shutdown
+ spanning-tree portfast edge
+ ip dhcp snooping limit rate 500
+!
+interface Vlan1
+ no ip address
+!
+interface Vlan90
+ description NETWORK SWITCH MANAGEMENT
+ ip address 192.168.90.232 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 192.168.90.1
+ip forward-protocol nd
+no ip http server
+ip http authentication local
+no ip http secure-server
+!
+ip ssh version 2
+!
+ip access-list standard ACL-FILTER-SNMP
+ remark ALLOW ORION SERVER
+ permit 192.168.50.107
+ remark ALLOW_MGMT (VLAN 90)
+ permit 192.168.90.0 0.0.0.255
+ deny   any log
+!
+ip access-list extended CMI-REMOTE-ACCESS
+ permit ip 192.168.50.0 0.0.0.255 any
+ permit ip 192.168.90.0 0.0.0.255 any
+ permit ip 192.168.100.0 0.0.0.255 any
+ permit ip 192.168.101.0 0.0.0.255 any
+ permit ip 192.168.105.0 0.0.0.255 any
+ permit ip 192.168.132.0 0.0.0.63 any
+ deny   ip any any log
+!
+!
+!
+snmp-server group CMI_SNMP_GRP v3 priv access ACL-FILTER-SNMP
+snmp-server group snmp-v3-ReadOnly v3 priv read snmp-v3-ReadOnly-View 
+snmp-server group snmp-v3-ReadWrite v3 priv write snmp-v3-ReadWrite-View 
+snmp-server view snmp-v3-ReadOnly-View iso included
+snmp-server view snmp-v3-ReadWrite-View iso included
+snmp-server trap-source Vlan90
+snmp-server source-interface informs Vlan90
+snmp-server location IS: Meck, BLDG: 5029, RM: Need to gather, LOC: Closet, AT: 806661 - LOGCAP-V (CMI)
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps port-security
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps errdisable
+!
+!
+no vstack
+banner login ^C
+*******************************************************************************
+* You are accessing a U.S. Government (USG) Information System (IS) that is   *
+* provided for USG-authorized use only. By using this IS (which includes any  *
+* device attached to this IS), you consent to the following conditions:       *
+*                                                                             *
+* -The USG routinely intercepts and monitors communications on this IS for    *
+* purposes including, but not limited to, penetration testing, COMSEC         *
+* monitoring, network operations and defense, personnel misconduct (PM), law  *
+* enforcement (LE), and counterintelligence (CI) investigations.              *
+*                                                                             *
+* -At any time, the USG may inspect and seize data stored on this IS.         *
+*                                                                             *
+* -Communications using, or data stored on, this IS are not private, are      *
+* subject to routine monitoring, interception, and search, and may be         *
+* disclosed or used for any USG-authorized purpose.                           *
+*                                                                             *
+* -This IS includes security measures (e.g., authentication and access        *
+* controls) to protect USG interests--not for your personal benefit or        *
+* privacy.                                                                    *
+*                                                                             *
+* -Notwithstanding the above, using this IS does not constitute consent to PM,*
+* LE or CI investigative searching or monitoring of the content of privileged *
+* communications, or work product, related to personal representation or      *
+* services by attorneys, psychotherapists, or clergy, and their assistants.   *
+* Such communications and work product are private and confidential. See User *
+* Agreement for details.                                                      *
+*******************************************************************************
+^C
+banner motd ^C
+888       .d88888b.   .d8888b.   .d8888b.         d8888 8888888b.   888     888 
+888      d88P" "Y88b d88P  Y88b d88P  Y88b       d88888 888   Y88b  888     888 
+888      888     888 888    888 888    888      d88P888 888    888  888     888 
+888      888     888 888        888            d88P 888 888   d88P  Y88b   d88P 
+888      888     888 888  88888 888           d88P  888 8888888P"    Y88b d88P  
+888      888     888 888    888 888    888   d88P   888 888      8888 Y88o88P   
+888      Y88b. .d88P Y88b  d88P Y88b  d88P  d8888888888 888            Y888P    
+88888888  "Y88888P"   "Y8888P88  "Y8888P"  d88P     888 888             Y8P    
+^C
+!
+line con 0
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ access-class CMI-REMOTE-ACCESS in
+ privilege level 15
+ logging synchronous
+ transport input ssh
+ transport output none
+line vty 5 15
+ access-class CMI-REMOTE-ACCESS in
+ privilege level 15
+ logging synchronous
+ transport input none
+ transport output none
+!
+ntp server 192.168.90.1
+!
+end

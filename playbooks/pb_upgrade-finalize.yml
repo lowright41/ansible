@@ -1,0 +1,48 @@
+# filename - pb_finalize_upgrade.yml
+# @desc [Automation - Finalize IOS upgrade on Cisco Catalyst Switches]
+# @author [Lucien Wright]
+# @created [2025-05-30]
+# Recommended run command:
+# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_finalize_upgrade.yml 
+
+---
+- name: Finalize IOS Upgrade (Set Boot & Reload)
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+    - ansible.netcommon
+
+  tasks:
+    - name: Derive image filename from full path (safe for all hosts)
+      set_fact:
+        ios_image_file: "{{ ios_image_name | basename }}"
+      when: ios_image_name is defined
+
+    - name: Set bootflash_path for debug/reference
+      set_fact:
+        bootflash_path: "flash:{{ ios_image_file }}"
+      when: ios_image_file is defined
+
+    - name: Debug boot command
+      debug:
+        msg: "Boot command being pushed: boot system flash:{{ ios_image_file }}"
+
+    - name: Set boot variable to new image
+      ios_config:
+        lines:
+          - no boot system
+          - boot system flash:{{ ios_image_file }}
+      when: ios_image_file is defined
+
+    - name: Save running-config to startup-config
+      ios_command:
+        commands:
+          - write memory
+
+    - name: Include Task - Verify MD5 Before Reboot
+      include_tasks: '{{ task_path }}/tk_verify_md5.yml'
+
+    - name: Include Task - Reboot Device
+      include_tasks: '{{ task_path }}/tk_reboot_device.yml'

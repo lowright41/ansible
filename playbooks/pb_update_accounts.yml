@@ -1,0 +1,38 @@
+# filename - pb_update_accounts.yml
+# @author [Lucien Wright]
+# @create date [05-30-2025]
+# @desc [Add/Update/Removed a local user account on Cisco IOS devices]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_update_accounts.yml
+
+---
+- name: Manage local admin user via ios_user module
+  hosts: all
+  connection: network_cli
+  gather_facts: false
+
+  vars_prompt:
+    - name: 'new_username'
+      prompt: 'What is the username you are wanting to manage?'
+      private: no
+
+    - name: 'new_password'
+      prompt: 'What is the password? [Hidden] (Leave blank if removing a user)'
+      private: no
+
+  tasks:
+    - name: Remove user when no password supplied
+      cisco.ios.ios_user:
+        name: "{{ new_username }}"
+        state: absent
+      when: new_password | trim == ''
+
+    - name: Add or update user when password supplied
+      cisco.ios.ios_user:
+        name: "{{ new_username }}"
+        configured_password: "{{ new_password }}"
+        password_type: secret
+        privilege: 15
+        update_password: always
+        state: present
+      when: new_password | length > 0

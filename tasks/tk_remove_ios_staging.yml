@@ -1,0 +1,20 @@
+# Include Task
+# - name: Include Task - Remove IOS Staging
+#   include_tasks: '{{ task_path }}/tk_remove_ios_staging.yml'
+
+- name: Set Window-Size
+  ios_config:
+    lines:
+      - no ip ssh bulk-mode
+      - ip ssh window-size 8192
+      - ip tcp window-size 4128
+      - no ip scp server enable
+  ignore_errors: true
+
+- name: Change Line VTY
+  ios_config:
+    lines:
+      - session-timeout 10
+      - exec-timeout 5 0
+    parents:
+      - line vty 0 4

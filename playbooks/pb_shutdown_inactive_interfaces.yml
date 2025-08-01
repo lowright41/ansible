@@ -1,0 +1,32 @@
+---
+# Would recommend running this on one device at a time using --limit and verify first using --check
+# ansible-playbook -i ./inventories/ --limit '[devicename]' ./playbooks/pb_shutdown_inactive_interfaces.yml --check
+
+- name: Shutdown Inactive Interfaces
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Identify Interfaces With No Activity
+      ios_command:
+        commands: "show interfaces counters | include 0              0              0              0"
+      register: results
+
+    - name: Get a List of Interfaces
+      set_fact:
+        interface_list: '{{ ( interface_list | default([]) ) + [item.split()[0]] }}' # Iterate over the output and pull out the interface '[item.split()[0]]' as a list for us to loop over later
+      with_items: '{{ results.stdout_lines }}'
+
+    - name: Remove Duplicates
+      set_fact:
+        interface_list: '{{ interface_list | unique | replace("GG","G") }}' # Removes duplicates by making 'interface_list' equal itself but only '| unique' entries
+
+    - name: Apply Shutdown Config
+      ios_config:
+        lines:
+        - 'shutdown'
+        - 'description //NOT IN USE {{ now(fmt="%m/%d/%Y") }}//' # Adds todays date so we know when it was locked down
+        - 'switchport access vlan {{ null_vlan }}' # Defined variable in the all.yml
+        parents: 'interface {{ item.0 }}'
+      loop: '{{ interface_list | zip(interface_list) | list }}'

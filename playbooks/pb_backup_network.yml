@@ -1,0 +1,30 @@
+# filename - pb_backup_save_config.yml
+# @author [Lucien Wright]
+# @create date [04-11-2025]
+# @desc [Automation - Backup Cisco Switches]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_backup_save_config.yml
+
+---
+- name: Information Gathering
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+    software_mode: ''
+    serial_var: '{{ ansible_net_serialnum }}'
+
+  tasks:
+    - name: Include Task - Get Device Info
+      include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+    # Needed to determine the IOS type in order to correctly determine which task to run. IOS or NXOS
+
+    - name: Include Task - Backup Cisco }/configurations'
+      include_tasks: '{{ task_path }}/tk_backup_config.yml'
+
+    - name: Include Task - Backup PanOS Configs
+      include_tasks: '{{ task_path }}/tk_backup_config_panos.yml'
+
+    - name: Include Task - Write Cisco Config
+      include_tasks: '{{ task_path }}/tk_write_config.yml'

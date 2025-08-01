@@ -1,0 +1,143 @@
+dotcom: # location
+  hosts:
+    CM-A-K0806-18-1.60:
+      ansible_host: 192.168.1.60
+    CM-A-K0806-TECH-1.29:
+      ansible_host: 192.168.1.29
+    CM-A-K0907-8-1.58:
+      ansible_host: 192.168.1.58
+    CM-C-K0806-21-0.1:
+      ansible_host: 192.168.0.1
+    CM-R-K0806-21-0.10:
+      ansible_host: 192.168.0.10
+    CMCM-A-K1173-COM-1.47:
+      ansible_host: 192.168.1.47
+    CM-D-K1010-123-1.11:
+      ansible_host: 192.168.1.11
+    CM-A-K0687-101-1.55:
+      ansible_host: 192.168.1.55
+    CM-A-K0704-COM-0.29:
+      ansible_host: 192.168.0.29
+    CM-A-K0712-OFF-1.50:
+      ansible_host: 192.168.1.50
+    CM-A-K0902-102-1.56:
+      ansible_host: 192.168.1.56
+    CM-A-K1008-135-1.62:
+      ansible_host: 192.168.1.62
+    CM-A-K1010-A111-1.66:
+      ansible_host: 192.168.1.66
+    CM-A-K1010-A120-1.69:
+      ansible_host: 192.168.1.69
+    CM-A-K1010-A206-0.138:
+      ansible_host: 192.168.0.138
+    CM-A-K1010-A214-0.139:
+      ansible_host: 192.168.0.139
+    CM-A-K1010-B210F-1-35:
+      ansible_host: 192.168.1.35
+    CM-A-K1010-B217-1.39:
+      ansible_host: 192.168.1.39
+    CM-A-K1010-C118-1-59:
+      ansible_host: 192.168.1.59
+    CM-A-K1010-E102-1-23:
+      ansible_host: 192.168.1.23
+    CM-A-K1010-E99B-1.28:
+      ansible_host: 192.168.1.28
+    CM-A-K1010-F104-1.26:
+      ansible_host: 192.168.1.26
+    CM-A-K1054-100-1.53:
+      ansible_host: 192.168.1.53
+    CM-A-K1075-111-1.64:
+      ansible_host: 192.168.1.64
+    CM-A-K1173-COM-1.47:
+      ansible_host: 192.168.1.47
+    CM-A-M5050-128-1.70:
+      ansible_host: 192.168.1.70
+    CM-A-R8060-116A-0-137:
+      ansible_host: 192.168.0.137
+    CM-A-R8110-102-0-136:
+      ansible_host: 192.168.0.136
+    CM-A-R8132-RM103-1-71:
+      ansible_host: 192.168.1.71
+    CM-D-R8035-111-0.133:
+      ansible_host: 192.168.0.133
+    CM-D-R8035-111C-0-135:
+      ansible_host: 192.168.0.135
+    G7505-A-RM101-1-102:
+      ansible_host: 192.168.1.102
+    I9066-A-RMCOM-1-10:
+      ansible_host: 192.168.1.10
+    K0735-A-RM112-1-113:
+      ansible_host: 192.168.1.113
+    K0805-A-RMTV-1-101:
+      ansible_host: 192.168.1.101
+    K0805-A-RMTV-1-38:
+      ansible_host: 192.168.1.38
+    K0900-A-RM102-1-40:
+      ansible_host: 192.168.1.40
+    K0900-A-RMFLS-1-97:
+      ansible_host: 192.168.1.97
+    K0997-A-RMOFF-1-104:
+      ansible_host: 192.168.1.104
+    K1010-C-C123-1-105:
+      ansible_host: 192.168.1.105
+    CM-A-K0988-10-1.78:
+      ansible_host: 192.168.1.78
+    CM-A-K0806-25-1.21:
+      ansible_host: 192.168.1.21
+    CM-A-K0699-OFF-1.82:
+      ansible_host: 192.168.1.82
+    CM-D-M5050-154C-1-72:
+      ansible_host: 192.168.1.72
+    CM-A-K1036-103-1.49:
+      ansible_host: 192.168.1.49
+    CM-A-K0807-COMM-1.51:
+      ansible_host: 192.168.1.51
+    CM-A-R8140-138-0-140:
+      ansible_host: 192.168.0.140
+
+# # Functional Grouping
+dotcom_c:
+  hosts:
+    CM-C-K0806-21-0.1:
+    CM-R-K0806-21-0.10:
+
+# merchant:
+#   hosts:
+
+# school:
+#   hosts:
+
+# vectrus:
+#   hosts:
+
+
+# # Hardware Platform Grouping
+# c1000:
+#   hosts:
+#     CM-A-K0806-25-1.21:
+
+# c3560cx:
+#   hosts:
+#     CM-A-K0806-18-1.60:
+#     CM-A-K0806-TECH-1.29:
+
+# # Software Platform Grouping
+# ios:
+#   children:
+#     c1000:
+#     c2560x:
+#     c3560cx:
+#     c3560c405ex:
+
+# iosxe:
+#   children:
+#     cat3k_caa:
+#     cat4500e:
+#     cat9k:
+#     cat9k_lite:
+
+# nxos:
+#   children:
+#     n7700:
+
+# # Additional Grouping

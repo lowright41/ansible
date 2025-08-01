@@ -1,0 +1,14 @@
+# Include Command
+# - name: Include Task - Get Timestamp
+#   include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+#   run_once: true
+
+- name: Get Timestamp
+  command: date +%Y%m%d-%H-%M-%S
+  register: timestamp_raw
+  run_once: true
+
+- name: Format Timestamp
+  set_fact:
+    timestamp: '{{ timestamp_raw.stdout }}'
+  run_once: true

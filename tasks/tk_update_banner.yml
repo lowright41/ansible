@@ -1,0 +1,96 @@
+# Include Command
+# - name: Include Task - Update Banner
+#   include_tasks: '{{ task_path }}/tk_update_banner.yml'
+
+- name: IOS Section
+  block:
+    - name: Load Login Banner
+      ios_banner:
+        banner: login
+        text: |
+          *******************************************************************************
+          * You are accessing a U.S. Government (USG) Information System (IS) that is   *
+          * provided for USG-authorized use only. By using this IS (which includes any  *
+          * device attached to this IS), you consent to the following conditions:       *
+          *                                                                             *
+          * -The USG routinely intercepts and monitors communications on this IS for    *
+          * purposes including, but not limited to, penetration testing, COMSEC         *
+          * monitoring, network operations and defense, personnel misconduct (PM), law  *
+          * enforcement (LE), and counterintelligence (CI) investigations.              *
+          *                                                                             *
+          * -At any time, the USG may inspect and seize data stored on this IS.         *
+          *                                                                             *
+          * -Communications using, or data stored on, this IS are not private, are      *
+          * subject to routine monitoring, interception, and search, and may be         *
+          * disclosed or used for any USG-authorized purpose.                           *
+          *                                                                             *
+          * -This IS includes security measures (e.g., authentication and access        *
+          * controls) to protect USG interests--not for your personal benefit or        *
+          * privacy.                                                                    *
+          *                                                                             *
+          * -Notwithstanding the above, using this IS does not constitute consent to PM,*
+          * LE or CI investigative searching or monitoring of the content of privileged *
+          * communications, or work product, related to personal representation or      *
+          * services by attorneys, psychotherapists, or clergy, and their assistants.   *
+          * Such communications and work product are private and confidential. See User *
+          * Agreement for details.                                                      *
+          *******************************************************************************
+
+               888          888     .d8888b.   .d88888b.  888b     d888 
+               888          888    d88P  Y88b d88P" "Y88b 8888b   d8888 
+               888          888    888    888 888     888 88888b.d88888 
+           .d88888  .d88b.  888888 888        888     888 888Y88888P888 
+          d88" 888 d88""88b 888    888        888     888 888 Y888P 888 
+          888  888 888  888 888    888    888 888     888 888  Y8P  888 
+          Y88b 888 Y88..88P Y88b.  Y88b  d88P Y88b. .d88P 888   "   888 
+           "Y88888  "Y88P"   "Y888  "Y8888P"   "Y88888P"  888       888                                                                   
+
+  when: ansible_network_os == 'ios'
+
+# - name: NXOS Section
+#   block:
+#     - name: Load Login Banner
+#       nxos_banner:
+#         banner: login
+#          text: |
+#           *******************************************************************************
+#           * You are accessing a U.S. Government (USG) Information System (IS) that is   *
+#           * provided for USG-authorized use only. By using this IS (which includes any  *
+#           * device attached to this IS), you consent to the following conditions:       *
+#           *                                                                             *
+#           * -The USG routinely intercepts and monitors communications on this IS for    *
+#           * purposes including, but not limited to, penetration testing, COMSEC         *
+#           * monitoring, network operations and defense, personnel misconduct (PM), law  *
+#           * enforcement (LE), and counterintelligence (CI) investigations.              *
+#           *                                                                             *
+#           * -At any time, the USG may inspect and seize data stored on this IS.         *
+#           *                                                                             *
+#           * -Communications using, or data stored on, this IS are not private, are      *
+#           * subject to routine monitoring, interception, and search, and may be         *
+#           * disclosed or used for any USG-authorized purpose.                           *
+#           *                                                                             *
+#           * -This IS includes security measures (e.g., authentication and access        *
+#           * controls) to protect USG interests--not for your personal benefit or        *
+#           * privacy.                                                                    *
+#           *                                                                             *
+#           * -Notwithstanding the above, using this IS does not constitute consent to PM,*
+#           * LE or CI investigative searching or monitoring of the content of privileged *
+#           * communications, or work product, related to personal representation or      *
+#           * services by attorneys, psychotherapists, or clergy, and their assistants.   *
+#           * Such communications and work product are private and confidential. See User *
+#           * Agreement for details.                                                      *
+#           *******************************************************************************
+
+#                        888          888     .d8888b.   .d88888b.  888b     d888 
+#                        888          888    d88P  Y88b d88P" "Y88b 8888b   d8888 
+#                        888          888    888    888 888     888 88888b.d88888 
+#                    .d88888  .d88b.  888888 888        888     888 888Y88888P888 
+#                   d88" 888 d88""88b 888    888        888     888 888 Y888P 888 
+#                   888  888 888  888 888    888    888 888     888 888  Y8P  888 
+#                   Y88b 888 Y88..88P Y88b.  Y88b  d88P Y88b. .d88P 888   "   888 
+#                    "Y88888  "Y88P"   "Y888  "Y8888P"   "Y88888P"  888       888                                                                   
+          
+#   when: ansible_network_os == 'nxos'
+
+- name: Include Task - Write Config
+  include_tasks: '{{ task_path }}/tk_write_config.yml'

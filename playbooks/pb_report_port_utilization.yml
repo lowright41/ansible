@@ -1,0 +1,59 @@
+---
+- name: Report Port Utilization
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Include Task - Get Timestamp
+      include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+      run_once: true
+
+    - name: Include Task - Get Interface Info
+      include_tasks: '{{ task_path }}/tk_get_interface_info.yml'
+
+    - name: Gather Total Interfaces
+      set_fact:
+        int_total: '{{ ansible_network_resources["l2_interfaces"] | length }}' # Calculate the List into an Integer to give us a entry count
+      
+    - name: Gather Up Interfaces
+      with_items: '{{ ansible_net_interfaces | dict2items }}' # This converts the subset of information 'ansible_net_interfaces' to a dictionary, allowing us to loop over it
+      set_fact:
+        int_up_list: '{{ (int_up_list | default([])) | union([item]) | list }}' # Iterate over the list and add to it (Looping and Appending)
+      when: 'item.value.operstatus == "up" and item.value.type != "EtherSVI"' # Status: UP and NOT VLAN Interfaces
+
+    - name: Calculate Up Interfaces
+      set_fact:
+        int_up: '{{ int_up_list | length }}' # Calculate the List into an Integer to give us a entry count
+
+    - name: Calculate Down Interfaces
+      set_fact:
+        int_down: '{{ int_total | int - int_up | int }}' # Perform math to infer the down interfaces (Total - Up = Down)
+
+    - name: Calculate Utilization
+      set_fact:
+        utilization: '{{ int_up | int / int_total | int }}' # Perform math to infer the utilization rate (Up / Total = Utilized)
+
+    - name: Calculate Percentage
+      set_fact:
+        percentage_utilized: '{{ utilization | float * 100 }}' # Perform math to convert to percentage
+
+    - name: Set Filename VAR
+      set_fact:
+        filename: 'Port Utilization@{{ timestamp }}.csv'
+      run_once: true
+
+    - name: Create CSV
+      lineinfile:
+        dest: '{{ report_path }}/{{ filename }}'
+        line:
+          Hostname,Total Interfaces,Up Interfaces,Down Interfaces,Utilization
+        create: yes
+      run_once: true
+
+    - name: Fill CSV
+      lineinfile:
+        insertafter: EOF
+        dest: '{{ report_path }}/{{ filename }}'
+        line: '{{ inventory_hostname }},{{ int_total }},{{ int_up }},{{ int_down }},{{ percentage_utilized | float | round(2) }}%' # Exports lines of information to a CSV
+      throttle: 1

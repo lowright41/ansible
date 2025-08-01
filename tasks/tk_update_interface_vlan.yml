@@ -1,0 +1,11 @@
+# Include Command
+# - name: Include Task - Update Interface VLAN
+#   include_task: '{{ task_path }}/tk_update_interface_vlan.yml'
+
+- name: Configure the Interface with the VLAN
+  ios_config:
+    lines:
+      - "interface {{ interface }}"
+      - "switchport access vlan {{ vlan_id }}"
+      - "description {{ vlan_desc }}"
+    when: vlan_type is user or wifi or print # Need to redo this

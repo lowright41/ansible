@@ -1,0 +1,21 @@
+# filename - pb_configure_aaa.yml
+# @author [Lucien Wright]
+# @create date [04-11-2025]
+# @desc [Automation - Update AAA and RADUIUS]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_configure_aaa.yml
+
+---
+- name: Configure Miscelaneous Configuration
+  hosts: all    # or your specific group
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Complete Micellaneous Configuration
+      ios_config:               # for IOS and similar; use nxos_config for NX-OS
+        #lines: "{{ lookup('template', 'aaa_radius.j2') | splitlines() }}"
+        src: "{{ config_path }}/tacacs.j2"
+
+    - name: Include Task - Write Config
+      include_tasks: '{{ task_path }}/tk_write_config.yml'

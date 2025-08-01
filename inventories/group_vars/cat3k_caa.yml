@@ -1,0 +1,18 @@
+---
+# Netflow Variables
+netflow: true
+absolute_timestamp: true
+
+# Staging Variables
+install_cmd: "" # Install command for INSTALL
+install_boot: "" # Boot statement for INSTALL
+bundle_cmd: "" # For going to INSTALL from BUNDLE
+bundle_boot: "boot system {{ dir }}:/{{ update_file }}" # Boot statement for BUNDLE
+source: '{{ server_path }}\device' # Can be done in an all if we don't group anything by device
+
+# Update File Variables - Last Updated 03/29/2025
+version: "16.12.12" # Version as shown on Device
+update_file: "cat3k_caa-universalk9.16.12.12.SPA.bin" # Filename of the update file
+md5: "b8cd58319082c40241ff5379218e2b80" # Acquire from Cisco
+update_kb: "471369" # File in kilobytes, divide bytes on Cisco by 1024
+

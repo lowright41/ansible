@@ -1,0 +1,14 @@
+! AAA & TACACS Configuration
+
+aaa new-model
+aaa group server radius MGMT-TACACS
+ server name K0806-DTC-PADMIN
+aaa authentication login default group MGMT-TACACS group MGMT-RADIUS local
+aaa authorization exec default group MGMT-TACACS group MGMT-RADIUS local
+aaa accounting exec default start-stop group MGMT-TACACS
+aaa accounting commands 15 default start-stop group MGMT-TACACS
+
+! TACACS server definition
+tacacs server {{ tacacs_name }}
+  address ipv4 {{ tacacs_host }}
+  key {{ tacacs_key }}

@@ -1,0 +1,863 @@
+kwajalein: # Island
+  hosts:
+    K0806-DTC-CORE01-VDC_90.1:
+      ansible_host: 192.168.90.1
+      building: "0806"
+      room: "DTC"
+      install_loc: "Cabinet"
+      asset_tag: "Need to gather"
+
+    K0806-DTC-CORE01-SWI_100.100:
+      ansible_host: 192.168.100.100
+      building: "0806"
+      room: "DTC"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2005497"
+
+    K1010-123-DIST01-SWI_90.2:
+      ansible_host: 192.168.90.2
+      building: "1010"
+      room: "123"
+      install_loc: "Cabinet"
+      asset_tag: "Need to gather"
+
+    K0806-018-MGMT01-SWI_90.5:
+      ansible_host: 192.168.90.5
+      building: "0806"
+      room: "018"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW13009"
+
+    K0806-DTC-SCHLVM-SWI_90.6:
+      ansible_host: 192.168.90.6
+      building: "0806"
+      room: "DTC"
+      install_loc: "Need to gather"
+      asset_tag: "LCP060000028"
+
+    K0806-DTC-SRVRA1-SWI_90.7:
+      ansible_host: 192.168.90.7
+      building: "0806"
+      room: "DTC"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW16319"
+      
+    K0806-CAB-TECHRM-SW1_90.9:
+      ansible_host: 192.168.90.9
+      building: "0806"
+      room: "CAB"
+      install_loc: "Need to gather."
+      asset_tag: "LCV2016333"
+
+    K0806-CAB-TECHRM-SW2_90.10:
+      ansible_host: 192.168.90.10
+      building: "0806"
+      room: "CAB"
+      install_loc: "Need to gather."
+      asset_tag: "LCV2005708"
+
+    K1010-123-MGMT02-SWI_90.11:
+      ansible_host: 192.168.90.11
+      building: "1010"
+      room: "123"
+      install_loc: "Need to gather."
+      asset_tag: "Need to gather."
+
+    K0806-002-TECHRM-SW3_90.12:
+      ansible_host: 192.168.90.12
+      building: "0806"
+      room: "002"
+      install_loc: "Need to gather."
+      asset_tag: "LCV2005390"
+      
+    K0352-013-ESCLAB-SWI_90.17:
+      ansible_host: 192.168.90.17
+      building: "0352"
+      room: "013"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016332"
+      
+    K0352-017-ESLITL-SWI_90.20:
+      ansible_host: 192.168.90.20
+      building: "0352"
+      room: "017"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016408"
+      
+    K0362-COM-HSMPRM-SWI_90.21:
+      ansible_host: 192.168.90.21
+      building: "0362"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+      
+    K0361-COM-HS2FLR-SW1_90.22:
+      ansible_host: 192.168.90.22
+      building: "0361"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCP060000032" 
+      
+    K0361-105-HSCLAB-SWI_90.23:
+      ansible_host: 192.168.90.23
+      building: "0361"
+      room: "105"
+      install_loc: "Need to gather"
+      asset_tag: "LCP060000030"
+
+    K0360-CAB-HSCOUN-SW2_90.24:
+      ansible_host: 192.168.90.24
+      building: "0360"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016425"
+
+    K0362-CAB-HSLAB2-SWI_90.25:
+      ansible_host: 192.168.90.25
+      building: "0362"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "Need to gather" 
+      
+    K0361-COM-HS2FLR-SW2_90.26:
+      ansible_host: 192.168.90.26
+      building: "0361"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCP060000031"
+
+    K0352-018-ESGYMO-SWI_90.28:
+      ansible_host: 192.168.90.28
+      building: "0352"
+      room: "018"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+      
+    K0360-CAB-HSCOUN-SW1_90.29:
+      ansible_host: 192.168.90.29
+      building: "0360"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCP06KW04041"
+
+    K1890-CAB-TEENCE-SWI_90.33:
+      ansible_host: 192.168.90.33
+      building: "1890"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2016410"
+      
+    K0342-029-ESCOCO-SWI_90.34:
+      ansible_host: 192.168.90.34
+      building: "0342"
+      room: "029"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2006627"
+      
+    K0351-CAB-ESCLOS-SWI_90.35:
+      ansible_host: 192.168.90.35
+      building: "0351"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2008990"
+      
+    K0352-010-ESCLAS-SWI_90.36:
+      ansible_host: 192.168.90.36
+      building: "0352"
+      room: "010"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW16174"
+      
+    K0368-114-ESOFFI-SWI_90.37:
+      ansible_host: 192.168.90.37
+      building: "0368"
+      room: "114"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW13709"
+      
+    K0355-CLO-ESNVRR-SWI_90.38:
+      ansible_host: 192.168.90.38
+      building: "0355"
+      room: "Need to gather"
+      install_loc: "Closet"
+      asset_tag: "LCV2016402"
+      
+    K0213-COM-CYSREG-SWI_90.39:
+      ansible_host: 192.168.90.39
+      building: "0213"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016407"
+      
+    K0213-COM-CYSREG-SW2_90.40:
+      ansible_host: 192.168.90.40
+      building: "0213"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2019046"
+
+    K1228-CAB-WASTWA-SWI_90.43:
+      ansible_host: 192.168.90.43
+      building: "1228"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2007804"
+
+    K1071-CAB-EOCOFF-SWI_90.44:
+      ansible_host: 192.168.90.44
+      building: "1071"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2004389"
+
+    K0603-231-HOSPCR-SWI_90.45:
+      ansible_host: 192.168.90.45
+      building: "0603"
+      room: "231"
+      install_loc: "Need to gather"
+      asset_tag: "LCP060000027"
+
+    K0699-CAB-RADIOL-SWI_90.46:
+      ansible_host: 192.168.90.46
+      building: "0699"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2016411"
+
+    K0566-CAB-VETEXM-SWI_90.47:
+      ansible_host: 192.168.90.47
+      building: "0566"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCP06KW01139"
+
+    K1759-CAB-ARMYCO-SWI_90.48:
+      ansible_host: 192.168.90.48
+      building: "1759"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW01134"
+
+    K0357-2FL-DENTIS-SWI_90.49:
+      ansible_host: 192.168.90.49
+      building: "0357"
+      room: "Need to gather"
+      install_loc: "2nd Floor"
+      asset_tag: "LCP060000026"
+
+    K1500-CAB-DCCBWA-SWI_90.50:
+      ansible_host: 192.168.90.50
+      building: "1500"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0607-OFF-MARINE-SWI_90.53:
+      ansible_host: 192.168.90.53
+      building: "0607"
+      room: "OFF"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016412"
+
+    K0603-133-HOSPCM-SW1_90.56:
+      ansible_host: 192.168.90.56
+      building: "0603"
+      room: "133"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2011092"
+      
+    K0603-133-HOSPCM-SW2_90.57:
+      ansible_host: 192.168.90.57
+      building: "0603"
+      room: "133"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+      
+    K0232-CAB-POOLFM-SWI_90.58:
+      ansible_host: 192.168.90.58
+      building: "0232"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "806643"
+
+    K0904-CAB-FIREST-SWI_90.60:
+      ansible_host: 192.168.90.60
+      building: "0904"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016417"
+
+    K0704-COM-TDY2ND-SWI_90.61:
+      ansible_host: 192.168.90.61
+      building: "0704"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "806702"
+
+    K0704-COM-TDY3RD-SWI_90.62:
+      ansible_host: 192.168.90.62
+      building: "0704"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "806705"
+
+    K0908-CAB-KLODGE-SW1_90.63:
+      ansible_host: 192.168.90.63
+      building: "0908"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2019047"
+
+    K0712-CAB-RMIHNZ-SWI_90.64:
+      ansible_host: 192.168.90.64
+      building: "0712"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0813-CAB-DPWOFF-SWI_90.65:
+      ansible_host: 192.168.90.65
+      building: "0813"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0703-112-LAUNDR-SWI_90.66:
+      ansible_host: 192.168.90.66
+      building: "0703"
+      room: "112"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016400"
+
+    K0703-107-ZAMPOF-SWI_90.67:
+      ansible_host: 192.168.90.67
+      building: "0703"
+      room: "107"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0703-137-BAKERY-SWI_90.68:
+      ansible_host: 192.168.90.68
+      building: "0703"
+      room: "137"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016702"
+
+    K1418-OFF-SNAKPT-SWI_90.69:
+      ansible_host: 192.168.90.69
+      building: "1418"
+      room: "Need to gather"
+      install_loc: "Office"
+      asset_tag: "806660"
+
+    K0712-CAB-BSALON-SWI_90.70:
+      ansible_host: 192.168.90.70
+      building: "0712"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0835-115-MARSHL-SWI_90.71:
+      ansible_host: 192.168.90.71
+      building: "0835"
+      room: "115"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0807-COM-POLICE-SWI_90.72:
+      ansible_host: 192.168.90.72
+      building: "0807"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K1058-CAB-WAREHO-SWI_90.73:
+      ansible_host: 192.168.90.73
+      building: "1058"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0844-COM-ENGINE-SWI_90.74:
+      ansible_host: 192.168.90.74
+      building: "0844"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K1791-CAB-SELFHE-SWI_90.75:
+      ansible_host: 192.168.90.75
+      building: "1791"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+    
+    K0301-CAB-SURFWY-SWI_90.76:
+      ansible_host: 192.168.90.76
+      building: "0301"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCP06KW13712"
+
+    K0357-CAB-SAFETY-SWI_90.77:
+      ansible_host: 192.168.90.77
+      building: "0357"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0602-119-WAREHO-SWI_90.78:
+      ansible_host: 192.168.90.78
+      building: "0602"
+      room: "119"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0804-118-HVACOF-SWI_90.79:
+      ansible_host: 192.168.90.79
+      building: "0804"
+      room: "118"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0908-CAM-KLODGE-SW2_90.80:
+      ansible_host: 192.168.90.80
+      building: "0908"
+      room: "Need to gather"
+      install_loc: "CAM"
+      asset_tag: "LCP06KW01118"
+        
+    K0993-2FL-WARHSE-SWI_90.81:
+      ansible_host: 192.168.90.81
+      building: "0993"
+      room: "Need to gather"
+      install_loc: "2nd Floor"
+      asset_tag: "LCV2016406"
+
+    K0805-COM-AFNCLO-SWI_90.82:
+      ansible_host: 192.168.90.82
+      building: "0805"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0805-COM-MWROFF-SWI_90.83:
+      ansible_host: 192.168.90.83
+      building: "0805"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016399"
+
+    K0808-CAB-AUTOMO-SWI_90.84:
+      ansible_host: 192.168.90.84
+      building: "0808"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2004352"
+
+    K0856-COM-AUTOBD-SWI_90.85:
+      ansible_host: 192.168.90.85
+      building: "0856"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0636-COM-COLDST-SWI_90.86:
+      ansible_host: 192.168.90.86
+      building: "0636"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW01138"
+
+    K0301-CEI-SRFCAM-SWI_90.87:
+      ansible_host: 192.168.90.87
+      building: "0301"
+      room: "Need to gather"
+      install_loc: "Ceiling"
+      asset_tag: "LCP06KW01133"
+
+    K0760-COM-CUSTOD-SWI_90.88:
+      ansible_host: 192.168.90.88
+      building: "0760"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCP060000135"
+
+    K0993-OFF-WARHSE-SWI_90.89:
+      ansible_host: 192.168.90.89
+      building: "0993"
+      room: "OFF"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW13008"
+
+    K0683-OFF-CHAPLI-SWI_90.90:
+      ansible_host: 192.168.90.90
+      building: "0683"
+      room: "OFF"
+      install_loc: "Need to gather"
+      asset_tag: "806766"
+
+    K0671-COM-REBBER-SWI_90.91:
+      ansible_host: 192.168.90.91
+      building: "0671"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "806645"
+
+    K0511-CAB-ADULTR-SWI_90.92:
+      ansible_host: 192.168.90.92
+      building: "0511"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "803217"
+
+    K0804-127-OFFICE-SWI_90.93:
+      ansible_host: 192.168.90.93
+      building: "0804"
+      room: "127"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0804-108-HLPDSK-SWI_90.94:
+      ansible_host: 192.168.90.94
+      building: "0804"
+      room: "108"
+      install_loc: "Need to gather"
+      asset_tag: "Need to gather"
+
+    K0702-KIO-KIOSK1-SWI_90.95:
+      ansible_host: 192.168.90.95
+      building: "0702"
+      room: "KIO"
+      install_loc: "Need to gather"
+      asset_tag: "LCP06KW00655"
+
+    K0706-OFF-POSTOF-SWI_90.96:
+      ansible_host: 192.168.90.96
+      building: "0706"
+      room: "OFF"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016395"
+
+    K0898-CAB-BERRYA-SWI_90.97:
+      ansible_host: 192.168.90.97
+      building: "0898"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2005434"
+
+    K1390-CAB-SMBOAT-SWI_90.98:
+      ansible_host: 192.168.90.98
+      building: "1390"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2007805"
+
+    K0363-CAB-CRCRM5-SWI_90.99:
+      ansible_host: 192.168.90.99
+      building: "0363"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2011037"
+
+    K0730-109-GARRIS-SWI_90.150:
+      ansible_host: 192.168.90.150
+      building: "0730"
+      room: "109"
+      install_loc: "Need to gather"
+      asset_tag: "806791"
+
+    K1659-CAB-AIRTRA-SWI_90.151:
+      ansible_host: 192.168.90.151
+      building: "1659"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "803659"
+
+    K1010-COM-SPACMP-SWI_90.153:
+      ansible_host: 192.168.90.153
+      building: "1010"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2011105"
+
+    K0808-CAB-AUTOMO-SW2_90.154:
+      ansible_host: 192.168.90.154
+      building: "0808"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2006422"
+
+    K0623-CAB-DOCSEC-SWI_90.155:
+      ansible_host: 192.168.90.155
+      building: "0623"
+      room: "CAB"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2006197"
+
+    K0752-DTC-AIRTCO-SWI_90.156:
+      ansible_host: 192.168.90.156
+      building: "0752"
+      room: "DTC"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016707"
+
+    K0933-STO-WATEPL-SWI_90.157:
+      ansible_host: 192.168.90.157
+      building: "0933"
+      room: "STO"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016703"
+    
+    K0804-125-KIOSK1-SWI_90.158:
+      ansible_host: 192.168.90.158
+      building: "0804"
+      room: "125"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016718"
+
+    K0805-COM-AFNCLO-SW2_90.159:
+      ansible_host: 192.168.90.159
+      building: "0805"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016391"
+
+    K0700-CAB-HROFFI-SWI_90.200:
+      ansible_host: 192.168.90.200
+      building: "0700"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCP06KW00584"
+      
+    K0735-CLO-HDSHED-SWI_90.201:
+      ansible_host: 192.168.90.201
+      building: "0735"
+      room: "Need to gather"
+      install_loc: "Closet"
+      asset_tag: "LCV2003635"
+      
+    K0702-COM-FINANC-SW1_90.202:
+      ansible_host: 192.168.90.202
+      building: "0702"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2009426"
+      
+    K0602-115-LOGIST-SW1_90.203:
+      ansible_host: 192.168.90.203
+      building: "0602"
+      room: "115"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2011089"
+      
+    K0702-COM-FINANC-SW2_90.204:
+      ansible_host: 192.168.90.204
+      building: "0702"
+      room: "COM"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2016708"
+      
+    K0602-115-LOGIST-SW2_90.205:
+      ansible_host: 192.168.90.205
+      building: "0602"
+      room: "115"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2006198"
+
+# Hardware Platform Grouping
+c1000:
+  hosts:
+    K0806-CAB-TECHRM-SW2_90.10:
+    K1010-123-MGMT02-SWI_90.11:
+    K0806-002-TECHRM-SW3_90.12:
+    K0351-CAB-ESCLOS-SWI_90.35:
+    K0213-COM-CYSREG-SW2_90.40:
+    K1228-CAB-WASTWA-SWI_90.43:
+    K1500-CAB-DCCBWA-SWI_90.50:
+    K0908-CAB-KLODGE-SW1_90.63:
+    K0712-CAB-RMIHNZ-SWI_90.64:
+    K0807-COM-POLICE-SWI_90.72:
+    K0702-KIO-KIOSK1-SWI_90.95:
+    K1390-CAB-SMBOAT-SWI_90.98:
+    K0363-CAB-CRCRM5-SWI_90.99:
+    K0808-CAB-AUTOMO-SW2_90.154:
+
+c2960x:
+  hosts:
+    K0360-CAB-HSCOUN-SW1_90.29:
+    K0844-COM-ENGINE-SWI_90.74:
+
+c3560c405ex:
+  hosts:
+    K0898-CAB-BERRYA-SWI_90.97:
+
+c3560cx:
+  hosts:
+    K0362-CAB-HSLAB2-SWI_90.25:
+    K0352-018-ESGYMO-SWI_90.28:
+    K0342-029-ESCOCO-SWI_90.34:
+    K0566-CAB-VETEXM-SWI_90.47:
+    K1759-CAB-ARMYCO-SWI_90.48:
+    K0232-CAB-POOLFM-SWI_90.58:
+    K0703-107-ZAMPOF-SWI_90.67:
+    K1418-OFF-SNAKPT-SWI_90.69:
+    K0835-115-MARSHL-SWI_90.71:
+    K1058-CAB-WAREHO-SWI_90.73:
+    K0856-COM-AUTOBD-SWI_90.85:
+    K0636-COM-COLDST-SWI_90.86:
+    K0301-CEI-SRFCAM-SWI_90.87:
+    K0993-OFF-WARHSE-SWI_90.89:
+    K0683-OFF-CHAPLI-SWI_90.90:
+    K0671-COM-REBBER-SWI_90.91:
+    K0511-CAB-ADULTR-SWI_90.92:
+    K0804-108-HLPDSK-SWI_90.94:
+    K1659-CAB-AIRTRA-SWI_90.151:
+
+cat3k_caa:
+  hosts:
+    K0806-018-MGMT01-SWI_90.5:
+    K0806-DTC-SCHLVM-SWI_90.6:
+    K0362-COM-HSMPRM-SWI_90.21:
+    K0361-COM-HS2FLR-SW1_90.22:
+    K0361-105-HSCLAB-SWI_90.23:
+    K0361-COM-HS2FLR-SW2_90.26:
+    K1071-CAB-EOCOFF-SWI_90.44:
+    K0603-231-HOSPCR-SWI_90.45:
+    K0357-2FL-DENTIS-SWI_90.49:
+    K0603-133-HOSPCM-SW2_90.57:
+    K0704-COM-TDY2ND-SWI_90.61:
+    K0704-COM-TDY3RD-SWI_90.62:
+    K0908-CAM-KLODGE-SW2_90.80:
+    K0805-COM-AFNCLO-SWI_90.82:
+    K0808-CAB-AUTOMO-SWI_90.84:
+    K0760-COM-CUSTOD-SWI_90.88:
+    K0804-127-OFFICE-SWI_90.93:
+    K0730-109-GARRIS-SWI_90.150:
+    K1010-COM-SPACMP-SWI_90.153:
+    K0700-CAB-HROFFI-SWI_90.200:
+    K0735-CLO-HDSHED-SWI_90.201:
+
+cat9k:
+  hosts:
+    K1010-123-DIST01-SWI_90.2:
+    K0806-DTC-SRVRA1-SWI_90.7:
+    K0623-CAB-DOCSEC-SWI_90.155:
+    K0602-115-LOGIST-SW2_90.205:
+
+cat9k_lite:
+  hosts:
+    K0806-CAB-TECHRM-SW1_90.9:
+    K0352-013-ESCLAB-SWI_90.17:
+    K0352-017-ESLITL-SWI_90.20:
+    K0360-CAB-HSCOUN-SW2_90.24:
+    K1890-CAB-TEENCE-SWI_90.33:
+    K0352-010-ESCLAS-SWI_90.36:
+    K0368-114-ESOFFI-SWI_90.37:
+    K0355-CLO-ESNVRR-SWI_90.38:
+    K0213-COM-CYSREG-SWI_90.39:
+    K0699-CAB-RADIOL-SWI_90.46:
+    K0607-OFF-MARINE-SWI_90.53:
+    K0603-133-HOSPCM-SW1_90.56:
+    K0904-CAB-FIREST-SWI_90.60:
+    K0813-CAB-DPWOFF-SWI_90.65:
+    K0703-112-LAUNDR-SWI_90.66:
+    K0703-137-BAKERY-SWI_90.68:
+    K0712-CAB-BSALON-SWI_90.70:
+    K1791-CAB-SELFHE-SWI_90.75:
+    K0301-CAB-SURFWY-SWI_90.76:
+    K0357-CAB-SAFETY-SWI_90.77:
+    K0602-119-WAREHO-SWI_90.78:
+    K0804-118-HVACOF-SWI_90.79:
+    K0993-2FL-WARHSE-SWI_90.81:
+    K0805-COM-MWROFF-SWI_90.83:
+    K0706-OFF-POSTOF-SWI_90.96:
+    K0752-DTC-AIRTCO-SWI_90.156:
+    K0933-STO-WATEPL-SWI_90.157:
+    K0804-125-KIOSK1-SWI_90.158:
+    K0805-COM-AFNCLO-SW2_90.159:
+    K0702-COM-FINANC-SW1_90.202:
+    K0602-115-LOGIST-SW1_90.203:
+    K0702-COM-FINANC-SW2_90.204:
+
+n7700:
+  hosts:
+    K0806-DTC-CORE01-VDC_90.1:
+    K0806-DTC-CORE01-SWI_100.100:
+   
+# Functional Grouping
+
+tester:
+  hosts:
+    K0806-018-MGMT01-SWI_90.5:
+    K0806-CAB-TECHRM-SW2_90.10:
+    K0806-002-TECHRM-SW3_90.12:
+
+medical:
+  hosts:
+    K0603-231-HOSPCR-SWI_90.45:
+    K0699-CAB-RADIOL-SWI_90.46:
+    K0566-CAB-VETEXM-SWI_90.47:
+    K0357-2FL-DENTIS-SWI_90.49:
+    K0603-133-HOSPCM-SW1_90.56:          
+    K0603-133-HOSPCM-SW2_90.57:
+
+merchant:
+  hosts:
+    K0908-CAB-KLODGE-SW1_90.63:
+    K0703-112-LAUNDR-SWI_90.66:
+    K1418-OFF-SNAKPT-SWI_90.69:
+    K0703-137-BAKERY-SWI_90.68:
+    K0301-CAB-SURFWY-SWI_90.76:
+    K0301-CEI-SRFCAM-SWI_90.87:
+
+school:
+  hosts:
+    K0352-013-ESCLAB-SWI_90.17:
+    K0352-017-ESLITL-SWI_90.20:
+    K0362-COM-HSMPRM-SWI_90.21:
+    K0361-COM-HS2FLR-SW1_90.22:
+    K0361-105-HSCLAB-SWI_90.23:
+    K0360-CAB-HSCOUN-SW2_90.24:
+    K0362-CAB-HSLAB2-SWI_90.25:
+    K0361-COM-HS2FLR-SW2_90.26:
+    K0352-018-ESGYMO-SWI_90.28:
+    K0360-CAB-HSCOUN-SW1_90.29:
+    K1890-CAB-TEENCE-SWI_90.33:
+    K0342-029-ESCOCO-SWI_90.34:
+    K0351-CAB-ESCLOS-SWI_90.35:
+    K0352-010-ESCLAS-SWI_90.36:
+    K0368-114-ESOFFI-SWI_90.37:
+    K0355-CLO-ESNVRR-SWI_90.38:
+    K0213-COM-CYSREG-SWI_90.39:
+    K0213-COM-CYSREG-SW2_90.40:
+
+vectrus:
+  hosts:
+    K0700-CAB-HROFFI-SWI_90.200:
+    K0735-CLO-HDSHED-SWI_90.201:
+    K0702-COM-FINANC-SW1_90.202:
+    K0602-115-LOGIST-SW1_90.203:
+    K0702-COM-FINANC-SW2_90.204:
+    K0602-115-LOGIST-SW2_90.205:
+
+# Software Platform Grouping
+ios:
+  children:
+    c1000:
+    c2560x:
+    c3560cx:
+    c3560c405ex:
+
+iosxe:
+  children:
+    cat3k_caa:
+    cat4500e:
+    cat9k:
+    cat9k_lite:
+
+nxos:
+  children:
+    n7700:
+
+# Additional Grouping

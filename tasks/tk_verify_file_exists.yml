@@ -1,0 +1,19 @@
+# Include Task
+# - name: Set Search VAR
+#   set_fact:
+#     file: '{{ var }}'
+
+# - name: Include Task - Verify File Exists
+#   include_tasks: '{{ task_path }}/tk_verify_file_exists.yml'
+
+
+- name: Check for File in Flash
+  cli_command:
+    command: 'dir | include {{ file }}' # Declare file in [Set Search VAR]
+  register: dir_check
+  when: file_found == 'n'
+
+- name: Check VAR
+  set_fact:
+    file_found: 'y'
+  when: dir_check is search('{{ file }}') # Declare file in [Set Search VAR]

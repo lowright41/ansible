@@ -1,0 +1,33 @@
+---
+ansible_user: netadmin
+# ansible_network_os: ios
+# ansible_connection: network_cli
+ansible_ssh_pass: Kw@jIsHoT&$uNNy
+
+# Path Variables
+abs_path: '/etc/ansible' # Main path variable for referencing
+task_path: '{{ abs_path }}/tasks' # Path variable for task location
+config_path: '{{ abs_path }}/configurations' # Path variable for configuration location
+playbook_path: '{{ abs_path }}/playbooks' # Path variable for playbook location
+var_path: '{{ abs_path }}/vars' # Path variable for variable location
+report_path: '{{ abs_path }}/reports' # Path variable for report location
+server_path: '/media/dotCom' # Path variable to fileserver
+tftp_path: '/media/netAdmin/tftp_netAdmin' # Path tftp server
+ios_path: '/media/netAdmin/ciscoImages'
+
+# # Global Variables
+# null_vlan: '999'
+# management_interface: 'Vlan888'
+
+# ## Netflow Variables
+# netflow_server: '192.168.50.107'
+
+## SNMP Variables
+# snmp_auth: 'Gr33n0cean5@981'
+# snmp_priv: 'VBNfPRIVl456$%^'
+# snmp_read_group: 'snmp-v3-ReadOnly'
+# snmp_write_group: 'snmp-v3-ReadWrite'
+# snmp_read_view: 'snmp-v3-ReadOnly-View'
+# snmp_write_view: 'snmp-v3-ReadWrite-View'
+# snmp_read_user: 'snmp-read-user'
+# snmp_write_user: 'snmp-write-user'

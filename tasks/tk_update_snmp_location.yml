@@ -1,0 +1,33 @@
+# Include Command
+# - name: Include Task - Update SNMP Location
+#   include_tasks: '{{ task_path }}/tk_update_snmp_location.yml'
+
+- name: Build SNMP String
+  set_fact:
+    location_snmp: 'IS: {{ island }}, BLDG: {{ building }}, RM: {{ room }}, LOC: {{ install_loc }}, AT: {{ asset_tag }} - LOGCAP-V ({{ group | default("CMI") }})' 
+
+- name: IOS Section
+  block:
+    - name: Update SNMP Location (IOS)
+      ios_config: 
+        lines:
+          - snmp-server location {{ location_snmp }}
+          
+    - name: Save Running Config
+      ios_config:
+        save_when: changed
+
+  when: ansible_network_os == 'ios'
+
+- name: NXOS Section
+  block:
+    - name: Update SNMP Location (NXOS)
+      nxos_config: 
+        lines:
+          - snmp-server location {{ location_snmp }}
+          
+    - name: Save Running Config
+      nxos_config:
+        save_when: changed
+  
+  when: ansible_network_os == 'nxos'

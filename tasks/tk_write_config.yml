@@ -1,0 +1,23 @@
+# filename - tk_write_config.yml
+# @desc [Automation - Copy Running Config to Startup Config on Network Devices]
+# @author [Lucien Wright]
+# @created [2025-05-20]
+# Include Command:
+# - name: Include Task - Write Config
+#   include_tasks: '{{ task_path }}/tk_write_config.yml'
+
+- name: IOS Section
+  block:
+    - name: Save Running Config (IOS)
+      ios_config:
+        save_when: always
+
+  when: ansible_network_os == 'ios'
+
+- name: NXOS Section
+  block:
+    - name: Save Running Config (NXOS)
+      nxos_config:
+        save_when: always
+
+  when: ansible_network_os == 'nxos'

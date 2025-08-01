@@ -1,0 +1,18 @@
+---
+# Netflow Variables
+netflow: false
+absolute_timestamp: false
+
+# Staging Variables
+install_cmd: "" # Install command for INSTALL
+install_boot: "" # Boot statement for INSTALL
+bundle_cmd: "" # For going to INSTALL from BUNDLE
+bundle_boot: "boot system {{ dir }}:/{{ update_file }}" # Boot statement for BUNDLE
+source: '{{ server_path }}\device' # Can be done in an all if we don't group anything by device
+
+# Update File Variables - Last Updated 03/29/2025
+version: "15.2(7)E11" # Version as shown on Device
+update_file: "c2960x-universalk9-mz.152-7.E11.bin" # Filename of the update file
+md5: "2351a8bf98b9dfb721cc7c36a905f93b" # Acquire from Cisco
+update_kb: "26169" # File in kilobytes, divide bytes on Cisco by 1024
+

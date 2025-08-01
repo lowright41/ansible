@@ -1,0 +1,22 @@
+# filename - hosts_tester-3560.yml
+# @author [Lucien Wright]
+# @create date [01-12-2022]
+# @desc [Host File - Tester Inventory File]
+
+---
+
+local:
+  hosts:
+   K0806-109-SWI_90.225-TEST:
+    ansible_host: 192.168.90.225
+cmiNet:
+  children:
+   local:
+
+##
+## Note:
+## The variables are configured specifically for the IOS switches in the 'all.yml' 
+# file/config located under the 'group_var' folder
+
+# Information on ansible-vault can be found below:
+# https://docs.ansible.com/ansible/latest/user_guide/vault.html

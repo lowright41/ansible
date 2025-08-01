@@ -1,0 +1,28 @@
+# filename - pb_backup_panos.yml
+# @author [Lucien Wright]
+# @create date [04-11-2025]
+# @desc [Automation - Backup Cisco Switches]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'os_type_panos' -f 40 ./playbooks/pb_backup_panos.yml
+
+---
+- name: Information Gathering
+  hosts: os_type_panos
+  gather_facts: false
+
+  vars:
+    software_mode: ''
+    serial_var: '{{ ansible_net_serialnum }}'
+
+  tasks:
+    - name: Backup PAN-OS Configuration
+      block:
+        - name: Export PA running configuration
+          paloaltonetworks.panos.panos_export:
+            provider:
+              ip_address: "{{ ansible_host }}"
+              username: "{{ ansible_user }}"
+              password: "{{ ansible_ssh_pass }}"
+            category: configuration
+            filename: "{{ server_path }}/{{ inventory_hostname }}.xml"
+          register: export_result

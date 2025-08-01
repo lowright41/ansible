@@ -1,0 +1,12 @@
+# group_vars/platform_cisco_3650.yml
+
+ios_image_path: '{{ ios_path }}'
+ios_image_name: '{{ ios_image_path }}/cat3k_caa-universalk9.16.12.13.SPA.bin'
+ansible_command_timeout: 3600
+
+# ↓ Define the expected filesize (in bytes) for each image you'll ever push
+expected_filesizes:
+  'cat3k_caa-universalk9.16.12.13.SPA.bin': 482676423
+
+expected_md5s:
+  'cat3k_caa-universalk9.16.12.13.SPA.bin': '107c3002fd7f96adfb3a5bafd2d5bd66'

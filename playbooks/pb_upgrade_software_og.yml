@@ -1,0 +1,160 @@
+---
+- name: Cisco Software Upgrade
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  order: sorted
+
+  vars:
+    software_mode: ''
+    file_found: 'n'
+    stack_file_found: 'n'
+    rebooted: 'n'
+
+  vars_prompt:
+    - name: upgrade_mode
+      prompt: 'Do you want to upgrade from BUNDLE to INSTALL mode? (y/n)'
+      default: 'n'
+      private: no
+
+    - name: reboot
+      prompt: 'Do you want to reboot the device after installing? (y/n)'
+      default: 'n'
+      private: no
+
+  tasks:
+    - name: Information Tasks
+      block:
+        - name: Include Task - Get Device Info
+          include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+
+        - name: Include Task - Get Stack Count
+          include_tasks: '{{ task_path }}/tk_get_stack_count.yml'
+        
+        - name: Include Task - Get Directory
+          include_tasks: '{{ task_path }}/tk_get_directory.yml'
+        
+        - name: Include Task - Get Software Mode
+          include_tasks: '{{ task_path }}/tk_get_software_mode.yml'
+          
+    - name: Update Process
+      block:
+        - name: Staging Tasks
+          block:
+            # - name: Include Task - Get Timestamp
+            #   include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+            #   run_once: true
+              
+            - name: Include Task - Backup Config
+              include_tasks: '{{ task_path }}/tk_backup_config.yml'
+              
+            - name: Set Search VAR (Version)
+              set_fact:
+                file: '{{ version }}'
+
+            - name: Include Task - Verify File Exists (Version)
+              include_tasks: '{{ task_path }}/tk_verify_file_exists.yml'
+
+            - name: Set Search VAR (File)
+              set_fact:
+                file: '{{ update_file }}'
+
+            - name: Include Task - Verify File Exists (File)
+              include_tasks: '{{ task_path }}/tk_verify_file_exists.yml'
+              
+            - name: Check for File in Stack Flash # Only matters when we aren't in INSTALL mode
+              cli_command:
+                command: 'dir {{ dir }}-{{ item }}: | include {{ version }}'
+              register: stack_dir_check
+              with_sequence: start=2 end={{ stack_count }}
+              ignore_errors: true
+              when: 
+                - software_mode == 'bundle'
+                - upgrade_mode == 'n'
+
+            - name: Check Stack VAR
+              set_fact:
+                stack_file_found: 'y'
+              when: stack_dir_check is search('{{ version }}')
+
+            - name: Push Image
+              block:
+                - name: Set KB VAR
+                  set_fact:
+                    file_kb: '{{ update_kb }}'
+
+                - name: Include Task - Get Available Space
+                  include_tasks: '{{ task_path }}/tk_get_available_space.yml'
+
+                - name: Include Task - Add IOS Staging
+                  include_tasks: '{{ task_path }}/tk_add_ios_staging.yml'
+
+                - name: Include Task - Push Software
+                  include_tasks: '{{ task_path }}/tk_push_software.yml'
+
+                - name: Include Task - Remove IOS Staging
+                  include_tasks: '{{ task_path }}/tk_remove_ios_staging.yml'
+
+              when: file_found != 'y'
+
+            - name: Verify MD5 Hash in Flash
+              block:
+              - name: Generate MD5 Hash // 10 Min Timeout
+                cli_command:
+                  command: 'verify /md5 {{ dir }}:{{ update_file }}'
+                register: md5_result
+                vars:
+                  ansible_command_timeout: 600 # Timeout in seconds
+
+              - name: Compare MD5 Hash # Only need to check the Master Hash
+                assert:
+                  that:
+                    - md5_result is search('{{ md5 }}')
+                  fail_msg: 'The MD5 Hashes do not match, please verify source file and re-run playbook.'
+                  success_msg: 'The MD5 Hashes match, proceeding with update process.'
+            
+            - name: Transfer Update to Stack Flash # Only relevant in BUNDLE mode that isn't upgrading to INSTALL mode
+              cli_command:
+                command: 'copy {{ dir }}:{{ update_file }} {{ dir }}-{{ item }}:{{ update_file }}'
+                prompt:
+                  - 'Destination filename [{{ update_file }}]?'
+                answer:
+                  - "\r"
+              with_sequence: start=2 end={{ stack_count }}
+              ignore_errors: true
+              when:
+              - stack_file_found == 'n'
+              - software_mode == 'bundle'
+              - upgrade_mode =='n'
+
+        - name: Include Task - Install Software
+          include_tasks: '{{ task_path }}/tk_install_software.yml'
+            
+        - name: Reboot Tasks
+          block:
+            - name: Include Task - Write Config
+              include_tasks: '{{ task_path }}/tk_write_config.yml'
+              
+            - name: Include Task - Reboot Device
+              include_tasks: '{{ task_path }}/tk_reboot_device.yml'
+                
+            - name: Set Reboot VAR
+              set_fact:
+                rebooted: 'y'
+
+          when: reboot == 'y'
+
+      when: ansible_net_version != version
+    
+    - name: Verification & Cleanup Process
+      block:
+        - name: Include Task - Get Device Info
+          include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+
+        - name: Include Task - Verify Version
+          include_tasks: '{{ task_path }}/tk_verify_version.yml'
+
+        - name: Include Task - Cleanup Upgrade
+          include_tasks: '{{ task_path }}/tk_cleanup_upgrade.yml'
+
+      when: rebooted == 'y'

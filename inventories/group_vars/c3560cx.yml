@@ -1,0 +1,20 @@
+---
+# Netflow Variables
+netflow: false
+absolute_timestamp: false
+
+# Notes: C3560-CX is not able to boot into INSTALL
+
+# Staging Variables
+install_cmd: "" # Install command for INSTALL
+install_boot: "" # Boot statement for INSTALL
+bundle_cmd: "" # For going to INSTALL from BUNDLE
+bundle_boot: "boot system {{ dir }}:/{{ update_file }}" # Boot statement for BUNDLE
+source: '{{ server_path }}\device' # Can be done in an all if we don't group anything by device
+
+# Update File Variables - Last Updated 03/29/2025
+version: "15.2(7)E11" # Version as shown on Device
+update_file: "c3560cx-universalk9-mz.152-7.E11.bin" # Filename of the update file
+md5: "c3d572b97b521c42224d9dcb8799a69d" # Acquire from Cisco
+update_kb: "22431" # File in kilobytes, divide bytes by 1024
+

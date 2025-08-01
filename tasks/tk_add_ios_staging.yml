@@ -1,0 +1,20 @@
+# Include Command
+# - name: Include Task - Add IOS Staging
+#   include_tasks: '{{ task_path }}/tk_add_ios_staging.yml'
+
+- name: Change Line VTY
+  ios_config:
+    lines:
+      - session-timeout 90
+      - exec-timeout 90 0
+    parents:
+      - line vty 0 4
+
+- name: Set Window-Size
+  ios_config:
+    lines:
+      - ip scp server enable
+      - ip ssh window-size 65536
+      - ip tcp window-size 65536
+      - ip ssh bulk-mode
+  ignore_errors: true

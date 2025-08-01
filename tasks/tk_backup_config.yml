@@ -1,0 +1,25 @@
+---
+
+# Include Command
+    # - name: Include Task - Backup Config
+    #   include_tasks: '{{ task_path }}/tk_backup_config.yml'
+
+- name: IOS Section
+  block:
+    - name: Backup Running Config (IOS)
+      ios_config:
+        backup: yes
+        backup_options:
+          filename: '{{ ansible_net_hostname }}.txt'
+          dir_path: '{{ server_path }}'
+  when: ansible_network_os == 'ios'
+
+- name: NXOS Section
+  block:
+    - name: Backup Running Config (NXOS)
+      nxos_config:
+        backup: yes
+        backup_options:
+          filename: '{{ ansible_net_hostname }}.txt'
+          dir_path: '{{ server_path }}'
+  when: ansible_network_os == 'nxos'

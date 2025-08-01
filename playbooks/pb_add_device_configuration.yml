@@ -1,0 +1,20 @@
+---
+- name: Update Device Configuration and Access Interfaces
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  order: sorted
+
+  vars_prompt:
+    - name: config_file
+      prompt: "What config file do you want to load? (Include extension)" # This will check in the {{ config_path }}/ folder
+      private: false
+
+  tasks:
+    - name: Device Configuration
+      block:
+      - name: Include Task - Get Device Info
+        include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+
+      - name: Include Task - Apply Device Configuration Template
+        include_tasks: '{{ task_path }}/tk_update_device_configuration.yml'

@@ -1,0 +1,10 @@
+# Include Task
+# - name: Include Task - Verify Version
+#   include_tasks: '{{ task_path }}/tk_verify_version.yml'
+
+- name: Verify Version
+  assert:
+    that: 
+      - ansible_net_version == '{{ version }}'
+    fail_msg: '{{ ansible_net_hostname }} does not have a matching version. Found: {{ansible_net_version }}. Defined: {{version}}. Please review.'
+    success_msg: '{{ ansible_net_hostname }} is compliant with Version: {{ version }}.'

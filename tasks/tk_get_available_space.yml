@@ -1,0 +1,17 @@
+# Include Task
+# - name: Set KB VAR
+#   set_fact:
+#     file_kb: '{{ var }}'
+
+# Include Command
+# - name: Include Task - Get Available Space
+#   include_tasks: '{{ task_path }}/tk_get_available_space.yml'
+#   vars:
+#     file_kb: {{ var }}
+
+- name: Check for Space in Flash
+  assert:
+    that:
+      - ansible_net_filesystems_info['{{ dir }}:']['spacefree_kb'] < {{ file_kb }} # Declare file_kb in [Set KB VAR]
+    fail_msg: 'Not enough space on {{ ansible_net_hostname }}'
+    success_msg: 'Space available on {{ ansible_net_hostname }}'

@@ -1,0 +1,41 @@
+---
+- name: Report Err-Disabled
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  tasks:
+    - name: Include Task - Get Timestamp
+      include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+      run_once: true
+    
+    - name: Identify Err-Disabled Interfaces
+      ios_command:
+        commands: "show interface status | include err-disabled"
+      register: results
+
+    - name: Get a List of Interfaces
+      set_fact:
+        interface_list: '{{ ( interface_list | default([]) ) + [item.split()[0]] }}' # Iterate over the output and pull out the interface '[item.split()[0]]' as a list for us to loop over later
+      with_items: '{{ results.stdout_lines }}'
+
+    - name: Set Filename VAR
+      set_fact:
+        filename: 'Err-Disabled@{{ timestamp }}.csv'
+      run_once: true
+
+    - name: Create CSV
+      lineinfile:
+        dest: '{{ report_path }}/{{ filename }}'
+        line:
+          Hostname,Interface
+        create: yes
+      run_once: true
+
+    - name: Fill CSV
+      lineinfile:
+        insertafter: EOF
+        dest: '{{ report_path }}/{{ filename }}'
+        line: '{{ inventory_hostname }},{{ item.0 }}'
+      loop: '{{ interface_list | zip(interface_list | replace("[AnsibleUndefined]", "")) | list }}'
+      throttle: 1

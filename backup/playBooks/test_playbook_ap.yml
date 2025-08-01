@@ -1,0 +1,35 @@
+---
+- hosts: wlc
+
+  tasks:
+  - name: configurable backup path
+    aireos_command:
+      commands:
+       - show ap summary
+
+  # - name: backup config
+  #   aireos_config:
+  #     backup: yes
+      # backup_options:
+      #   filename: backup.cfg
+      #   dir_path: /etc/ansible/misc/config_{{ ansible_net_hostname }}.txt
+
+    #  
+    #  
+    #  
+      # backup: yes
+      # lines: sysname testDevice
+      # backup_options:
+      # filename: backup.cfg
+      # dir_path: /etc/ansible/misc/config_{{ ansible_net_hostname }}.txt
+
+# - hosts: wlc
+
+#   tasks:
+#   - name: configurable backup path
+#     aireos_config:
+#     backup: yes
+#     lines: sysname testDevice
+#     backup_options:
+#       filename: backup.cfg
+#       dir_path: /etc/ansible/misc/

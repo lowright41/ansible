@@ -1,0 +1,16 @@
+# @author [Lucien Wright]
+# @create date [01-29-2023]
+# @desc [Automation - Restart DHCP Service]
+
+---
+- hosts: dhcp_1
+
+  tasks:
+
+  - name: Restart Services
+    win_service:
+        name: dhcp
+        state: restarted
+
+      # ansible.windows.win_service:
+

@@ -1,0 +1,22 @@
+# @author [Lucien Wright]
+# @create date [01-16-2023]
+# @desc [Automation - Shut/no shut port-channel 10]
+
+---
+- hosts: nxos
+
+  tasks:
+
+   - name: Configure multiple lines of code from text file
+     nxos_config:
+       lines: 
+       - shutdown
+       - no shutdown
+       parents: interface port-channel10
+       #parents: interface loopback100
+
+   - name: Save the config when above task completes
+     nxos_config:
+       save_when: always
+
+#https://docs.ansible.com/ansible/latest/collections/cisco/nxos/nxos_config_module.html#ansible-collections-cisco-nxos-nxos-config-module

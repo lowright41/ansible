@@ -1,0 +1,7 @@
+# Include Command
+# - name: Include Task - Get Directory
+#   include_tasks: '{{ task_path }}/tk_get_directory.yml'
+
+- name: Get Directory # Use this to have an easier variable to reference, as well as remove the ':' for use in stacks, add the ':' back in to text string of commands
+  set_fact:
+    dir: "{{ ansible_net_filesystems | replace(':','') | replace('[','') | replace(']','') | replace(\"'\",'') }}"

@@ -1,0 +1,44 @@
+---
+
+- name: Gather and parse device information
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+
+  tasks:
+    - name: Get device info from running command
+      ios_command:
+        commands:
+          - show version
+      register: device_info
+
+    - name: Parse model, serial from show version
+      set_fact:
+        device_model: "{{ device_info.stdout[0] | regex_search('Model number\\s+:\\s+(\\S+)', '\\1') }}"
+        device_serial: "{{ device_info.stdout[0] | regex_search('System serial number\\s+:\\s+(\\S+)', '\\1') }}"
+        device_ip: "{{ hostvars[inventory_hostname]['ansible_host'] | default(inventory_hostname) }}"
+        device_os: "{{ device_info.stdout[0] | regex_search('Cisco IOS Software, .+ Version (\\S+)', '\\1') }}"
+        device_os_type: "IOS"  # Hardcoded for now, can adjust based on your needs
+    
+    - name: Show parsed values
+      debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Model: {{ device_model }}"
+          - "Serial: {{ device_serial }}"
+          - "IP: {{ device_ip }}"
+          - "OS: {{ device_os }}"
+          - "OS Type: {{ device_os_type }}"
+
+    - name: Append parsed info to CSV
+      delegate_to: localhost
+      run_once: false
+      lineinfile:
+        path: "{{ report_path }}/device_info.csv"
+        line: "{{ inventory_hostname }},{{ device_ip }},{{ device_model }},{{ device_serial }},{{ device_os }},{{ device_os_type }}"
+        create: yes
+        insertafter: EOF
+      vars:
+        ansible_become: false

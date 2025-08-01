@@ -1,0 +1,12 @@
+# group_vars/platform_cisco_2960x.yml
+
+ios_image_path: '{{ ios_path }}'
+ios_image_name: '{{ ios_image_path }}/c2960x-universalk9-mz.152-7.E12.bin'
+ansible_command_timeout: 3600
+
+# ↓ Define the expected filesize (in bytes) for each image you'll ever push
+expected_filesizes:
+  'c2960x-universalk9-mz.152-7.E12.bin': 26790912
+
+expected_md5s:
+  'c2960x-universalk9-mz.152-7.E12.bin': '8be5ae259b222a0bdd93548fe4158937'

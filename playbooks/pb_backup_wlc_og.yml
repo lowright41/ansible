@@ -1,0 +1,28 @@
+---
+# filename - pb_backup_save_config.yml
+# @author [Lucien Wright]
+# @create date [04-11-2025]
+# @desc [Automation - Backup Cisco Switches]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_backup_save_config.yml
+
+- name: Information Gathering
+  hosts: os_type_aireos
+  gather_facts: false
+
+  vars:
+    software_mode: ''
+    serial_var: '{{ ansible_net_serialnum }}'
+
+  tasks:
+    - name: Run 'show run-config' on AireOS
+      ansible.netcommon.cli_command:
+        command: show run-config
+      register: aireos_config
+      when: ansible_network_os == 'aireos'
+
+    - name: Save AireOS config to file
+      copy:
+        content: "{{ aireos_config.stdout[0] }}"
+        dest: "{{ server_path }}/{{ inventory_hostname }}-aireos.cfg"
+      when: aireos_config is defined

@@ -1,0 +1,16 @@
+# Include Command
+# - name: Include Task - Get Device Info
+#   include_tasks: '{{ task_path }}/tk_get_int_status.yml'
+
+- name: Get interface status
+  ios_command:
+    commands:
+      - show interfaces status
+  register: interface_output
+
+- name: Save interface status to file
+  copy:
+    content: "{{ interface_output.stdout[0] }}"
+    dest: "{{ server_path }}/int_status/{{ inventory_hostname }}.txt"
+
+

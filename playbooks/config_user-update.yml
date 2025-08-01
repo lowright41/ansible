@@ -1,0 +1,56 @@
+# filename - config_user-update.yml
+# @author [Lucien Wright]
+# @create date [01-13-2022]
+# @desc [Automation - Update/Add User(s) on Switches]
+
+---
+- hosts: all
+
+  tasks:
+
+    # - name: Update user password
+    #   ios_user:
+    #     name: admin
+    #     privilege: 15
+    #     type: 9
+    #     configured_password: testing1323
+    #     password_type: secret
+    #     update_password: always
+    #     state: present
+
+    # - name: Delete MULTIPLE users from Switches
+    #   ios_user:
+    #     aggregate:
+    #      - name: PubAdmin
+    #     #  - name: bruce.wynn
+    #     state: absent
+    #     # used present instead of absent to add new user 
+    #     # state: present
+
+    - name: Update user password
+      ios_user:
+        name: admin
+        privilege: 15
+        hashed_password:
+          type: 9
+          value: testing1323
+        update_password: always
+        state: present
+
+    # - name: Update user password
+    #   ios_user:
+    #     name: lucien.wright
+    #     privilege: 15
+    #     hashed_password:
+    #       type: 9
+    #       value: $14$V0Ih$cbilK6mt8tra8.$psXlNgGFnDw4i8LAJWlzYDJ/CwFBoeviF4kTTXGpx6I
+    #     update_password: always
+    #     state: present
+
+
+
+    - name: Include Task - Backup Config
+      include_tasks: '{{ task_path }}/tk_backup_config.yml'
+
+
+# https://docs.w3cub.com/ansible~2.9/modules/ios_user_module

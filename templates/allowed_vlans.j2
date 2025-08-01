@@ -1,0 +1,5 @@
+---
+Device: {{ inventory_hostname }}
+Interface: {{ item.name }}
+Allowed VLANs: {{ item.trunk.allowed_vlans | join(', ') }}
+Native VLAN: {{ item.trunk.native_vlan }}

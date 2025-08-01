@@ -1,0 +1,43 @@
+---
+- name: Report Allowed VLANs
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  
+  tasks:
+    - name: Include Task - Get Timestamp
+      include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+      run_once: true
+
+    - name: Gather L2 Interfaces
+      ios_l2_interfaces:
+        config:
+        state: gathered
+      register: net_ios_int_facts
+      when: ansible_network_os == 'ios'
+
+    - name: Set Filename VAR
+      set_fact:
+        filename: 'Allowed VLANs@{{ timestamp }}.csv'
+      run_once: true
+
+    - name: Create CSV
+      lineinfile:
+        dest: '{{ report_path }}/{{ filename }}'
+        line:
+          Hostname,Trunk Interface,Allowed VLANs,Native VLAN
+        create: yes
+      run_once: true
+
+    - name: Fill CSV
+      with_items: '{{ net_ios_int_facts["gathered"] }}'
+      vars:
+        trunk_interface: '{{ item.name }}'
+        allowed_vlans: "{{ item.trunk.allowed_vlans | replace(\"'\",'') | replace(', ',' ') | replace('[','') | replace(']','') | replace('-',' through ') }}"
+        native_vlan: '{{ item.trunk.native_vlan }}'
+      lineinfile:
+        insertafter: EOF
+        dest: '{{ report_path }}/{{ filename }}'
+        line: '{{ inventory_hostname }},{{ trunk_interface }},{{ allowed_vlans }},{{ native_vlan }}' # Exports lines of information to a CSV
+      when: 'item["mode"] is defined and item["mode"] == "trunk"'
+      

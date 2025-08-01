@@ -1,0 +1,11 @@
+# @author [Lucien Wright]
+# @create date [01-14-2022]
+# @desc [Default Connectivity Variables - NXOS Devices]
+
+---
+
+ansible_network_os: nxos
+# ansible_connection: network_cli
+
+# Note:
+# Every other variable matches with the all.yml file so we removed (commented out) them

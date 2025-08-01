@@ -1,0 +1,67 @@
+---
+# Recommended run command: ansible-playbook -i ./inventories --limit 'all' -f 40 ./playbooks/pb_report_device_information.yml
+
+- name: Information Gathering
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+
+  vars:
+    software_mode: ''
+    serial_var: '{{ ansible_net_serialnum }}'
+
+  tasks:
+    - name: Include Task - Get Device Info
+      include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+    
+    - name: Include Task - Get Software Mode
+      include_tasks: '{{ task_path }}/tk_get_software_mode.yml'
+
+    - name: Include Task - Get Timestamp
+      include_tasks: '{{ task_path }}/tk_get_timestamp.yml'
+      run_once: true
+
+    - name: Define Serial VAR
+      block:
+        - name: Stacked Serial Numbers
+          set_fact:
+            serial_var: '{{ ansible_net_stacked_serialnums }}'
+          when: ansible_net_stacked_serialnums is defined
+
+        - name: Virtual Serial Numbers
+          set_fact:
+            serial_var: '{{ ansible_net_virtual_switch_serialnums }}'
+          when: ansible_net_virtual_switch_serialnums is defined
+      
+    - name: Set Filename VAR
+      set_fact:
+        filename: 'Device Information Report@{{ timestamp }}.csv'
+
+    - name: Create CSV
+      lineinfile:
+        dest: '{{ report_path }}/{{ filename }}'
+        line:
+          Hostname,Serial Number,HW Model,SW Version,SW Mode,LCV Asset,Island,Building,Room,Install Location,Functional Group
+        create: yes
+
+    - name: Format data
+      vars:
+        serial_num: "{{ serial_var | replace (', ','/') | replace ('[','') | replace (']','') | replace (\"'\",'') }}"
+        asset: "{{ asset_tag | replace (', ','/') | replace ('[','') | replace (']','') | replace (\"'\",'') }}"
+      set_fact:  # Exports lines of information to a CSV
+        csv_tmp: >
+          {{ ansible_net_hostname }},{{ serial_num }},{{ ansible_net_model }},{{ ansible_net_version }},{{ software_mode }},{{ asset }},{{ island }},{{ building }},{{ room }},{{ install_loc }},{{ group | default('Local Island') }}
+      throttle: 1
+
+    - name: Fill CSV
+      lineinfile:
+        insertafter: EOF
+        dest: '{{ report_path }}/{{ filename }}'
+        line: '{{ csv_tmp }}'
+      throttle: 1
+    
+    - name: Remove Blanks
+      lineinfile:
+        path: '{{ report_path }}/{{ filename }}'
+        state: absent
+        regex: '^\s*$'

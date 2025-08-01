@@ -1,0 +1,165 @@
+roi: # Island
+  hosts: 
+    R8035-DTC-DIST02-SWI_90.100:
+      ansible_host: 192.168.90.100
+      building: "8035"
+      room: "DTC"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2005497"
+
+    R8035-DTC-MGMT02-SWI_90.102:
+      ansible_host: 192.168.90.102
+      building: "8035"
+      room: "DTC"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2005434"
+
+    R8051-DSK-ROWHSE-SWI_90.104:
+      ansible_host: 192.168.90.104
+      building: "8051"
+      room: "Need to gather"
+      install_loc: "Desk"
+      asset_tag: "806745"
+
+    R8224-CAB-ROCART-SWI_90.105:
+      ansible_host: 192.168.90.105
+      building: "8224"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "Need to gather"
+
+    R8015-OFF-CAFERO-SW1_90.106:
+      ansible_host: 192.168.90.106
+      building: "8015"
+      room: "Need to gather"
+      install_loc: "Office"
+      asset_tag: "803630"
+
+    R8015-FLO-CAFERO-SW2_90.107:
+      ansible_host: 192.168.90.107
+      building: "8015"
+      room: "Need to gather"
+      install_loc: "Floor"
+      asset_tag: "LCV2010274"
+
+    R8016-CAB-BILLET-SWI_90.108:
+      ansible_host: 192.168.90.108
+      building: "8016"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2005441"
+
+    R8023-BAC-FIREST-SWI_90.109:
+      ansible_host: 192.168.90.109
+      building: "8023"
+      room: "Need to gather"
+      install_loc: "Back"
+      asset_tag: "Need to gather"
+
+    R8233-CAB-ROWHSE-SWI_90.110:
+      ansible_host: 192.168.90.110
+      building: "8233"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "806664"
+
+    R8154-CAB-OMWARE-SWI_90.111:
+      ansible_host: 192.168.90.111
+      building: "8154"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2005428"
+
+    R8250-CAB-RSURFW-SWI_90.113:
+      ansible_host: 192.168.90.113
+      building: "8250"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2005522"
+      
+    R8350-CAB-RPOWER-SWI_90.114:
+      ansible_host: 192.168.90.114
+      building: "8350"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "LCV2016341"
+
+    R8375-FLO-TRADES-SWI_90.115:
+      ansible_host: 192.168.90.115
+      building: "8375"
+      room: "Need to gather"
+      install_loc: "Floor"
+      asset_tag: "Need to gather"
+
+    R8034-CAB-AUTOMO-SWI_90.116:
+      ansible_host: 192.168.90.116
+      building: "8034"
+      room: "Need to gather"
+      install_loc: "Cabinet"
+      asset_tag: "Need to gather"
+
+# Functional Grouping
+medical:
+  hosts:
+
+merchant:
+  hosts:
+    R8250-CAB-RSURFW-SWI_90.113:
+
+school:
+  hosts:
+
+vectrus:
+  hosts:
+
+# Hardware Platform Grouping
+c1000:
+  hosts:
+    R8224-CAB-ROCART-SWI_90.105:
+    R8015-FLO-CAFERO-SW2_90.107:
+    R8154-CAB-OMWARE-SWI_90.111:
+    R8250-CAB-RSURFW-SWI_90.113:
+    R8375-FLO-TRADES-SWI_90.115:
+    R8034-CAB-AUTOMO-SWI_90.116:
+
+c3560cx:
+  hosts:
+    R8051-DSK-ROWHSE-SWI_90.104:
+    R8015-OFF-CAFERO-SW1_90.106:
+    R8016-CAB-BILLET-SWI_90.108:
+    R8023-BAC-FIREST-SWI_90.109:
+    R8233-CAB-ROWHSE-SWI_90.110:
+
+cat4500e:
+  hosts:
+    R8035-DTC-DIST02-SWI_90.100:
+
+cat9k:
+  hosts:
+    R8035-DTC-MGMT02-SWI_90.102:
+
+cat9k_lite:
+  hosts:
+    R8350-CAB-RPOWER-SWI_90.114:
+
+
+# Software Platform Grouping
+ios:
+  children:
+    c1000:
+    c2560x:
+    c3560cx:
+    c3560c405ex:
+
+iosxe:
+  children:
+    cat3k_caa:
+    cat4500e:
+    cat9k:
+    cat9k_lite:
+
+nxos:
+  children:
+    n7700:
+
+# Additional Grouping

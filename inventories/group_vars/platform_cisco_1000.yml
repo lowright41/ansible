@@ -1,0 +1,12 @@
+# group_vars/platform_cisco_1000.yml
+
+ios_image_path: '{{ ios_path }}'
+ios_image_name: '{{ ios_image_path }}/c1000-universalk9-mz.152-7.E12.bin'
+ansible_command_timeout: 3600
+
+# ↓ Define the expected filesize (in bytes) for each image you'll ever push
+expected_filesizes:
+  'c1000-universalk9-mz.152-7.E12.bin': 16507904
+
+expected_md5s:
+  'c1000-universalk9-mz.152-7.E12.bin': '924cfc8acafc95c882b750cb55c79961'

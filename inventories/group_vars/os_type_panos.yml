@@ -1,0 +1,17 @@
+---
+
+ansible_connection: httpapi
+ansible_network_os: paloaltonetworks.panos.panos
+ansible_httpapi_use_ssl: true
+ansible_httpapi_validate_certs: false
+# ansible_panos_user: luwright
+# ansible_password: PaytoN72@12
+
+# Path Variables
+abs_path: '/etc/ansible' # Main path variable for referencing
+task_path: '{{ abs_path }}/tasks' # Path variable for task location
+config_path: '{{ abs_path }}/configurations' # Path variable for configuration location
+playbook_path: '{{ abs_path }}/playbooks' # Path variable for playbook location
+var_path: '{{ abs_path }}/vars' # Path variable for variable location
+report_path: '{{ abs_path }}/reports' # Path variable for report location
+server_path: '/media/cmiNet' # Path variable to fileserver

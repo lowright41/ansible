@@ -1,0 +1,24 @@
+---
+- name: Palo Alto Playbook
+  hosts: pa_1
+  gather_facts: false
+  connection: local
+
+  collections:
+    - paloaltonetworks.panos
+
+  vars:
+    palo_provider:
+      ip_address: '10.176.90.11'
+      api_key: LUFRPT01SnRCdkl6TVU5L0QrUDJsaWtPVnhIZDFDNUk9dGd6WXg5MG82SHpvMEl3Y3BZdlBZcGdTaHFNVENnV0NhcnIybFlwUzIzaTNRQmJFS0dnYWhxUnBNZEhkaDNVRw==
+
+  tasks:
+  
+  - name: Get the system info
+    panos_op:
+      provider: '{{ palo_provider }}'
+      cmd: 'show system info'
+    register: res
+    
+  - debug:
+      msg: '{{ res.stdout }}'

@@ -1,0 +1,15 @@
+# Prompted VARs
+# var_prompts:
+#   - name: config_file
+#     prompt: "What config file do you want to load? (Include extension)"
+#     private: no
+
+
+# Include Command
+# - name: Include Task - Apply Device Configuration Template
+#   include_tasks: '{{ task_path }}/tk_update_device_configuration.yml'
+
+- name: Apply Device Configuration Template
+  ios_config:
+    src: "{{ config_path }}/{{ config_file }}"
+    save_when: modified

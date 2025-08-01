@@ -1,0 +1,44 @@
+# mp_check_os_version.yml
+# Purpose: Get OS version, model, serial from devices (using structured facts)
+
+---
+- name: Check current running OS version
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+
+  tasks:
+    - name: Gather structured facts from device
+      ios_facts:
+
+    - name: Set version, model, serial from facts
+      set_fact:
+        device_os: "{{ ansible_net_version }}"
+        device_model: "{{ ansible_net_model }}"
+        device_serial: "{{ ansible_net_serialnum }}"
+        device_ip: "{{ hostvars[inventory_hostname]['ansible_host'] | default(inventory_hostname) }}"
+        device_os_type: "IOS"
+
+    - name: Print structured device info
+      debug:
+        msg:
+          # - "Device: {{ inventory_hostname }}"
+          # - "IP: {{ device_ip }}"
+          # - "Model: {{ device_model }}"
+          # - "Serial: {{ device_serial }}"
+          - "OS Version: {{ device_os }}"
+          # - "OS Type: {{ device_os_type }}"
+
+    - name: Append OS info to local CSV report (optional)
+      delegate_to: localhost
+      run_once: false
+      lineinfile:
+        path: "{{ report_path }}/os_versions.csv"
+        line: "{{ inventory_hostname }},{{ device_ip }},{{ device_model }},{{ device_serial }},{{ device_os }},{{ device_os_type }}"
+        create: yes
+        insertafter: EOF
+      when: export_os_report | default(false)
+      vars:
+        ansible_become: false

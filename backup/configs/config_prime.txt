@@ -1,0 +1,1 @@
+spanning-tree portfast bpduguard default

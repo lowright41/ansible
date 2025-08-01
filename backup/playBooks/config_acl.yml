@@ -1,0 +1,33 @@
+# @author [Lucien Wright]
+# @create date [01-13-2022]
+# @desc [Automation - Configuring Switches]
+
+---
+- hosts: cmiNet
+
+  tasks:
+  #  - name: Before anything, remove access-list 1  
+  #    ios_config:
+  #      before: no access-list 1
+
+  #  - name: Configure multiple lines of code from text file
+  #    ios_config:
+  #      src: /etc/ansible/configs/config_acl1.txt
+
+  #  - ios_config:
+  #      lines:
+  #       - 10 permit 192.168.100.0 0.0.0.255
+  #       - 20 permit 192.168.101.0 0.0.0.255
+  #       - 30 permit 192.168.105.0 0.0.0.255
+  #       - 40 permit 192.168.132.0 0.0.0.63
+  #       - 50 permit 192.168.50.0 0.0.0.255
+  #       - 60 deny any log
+  #      parents: ip access-list extended CMI-REMOTE-ACCESS
+  #      before: no ip access-list extended CMI-REMOTE-ACCESS
+  #      match: exact
+
+   - name: Save the config when above task completes
+     ios_config:
+       save_when: always
+
+#End of codes

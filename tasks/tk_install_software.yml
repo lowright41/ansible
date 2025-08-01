@@ -1,0 +1,42 @@
+# Include Task
+# - name: Include Task - Install Software
+#   include_tasks: '{{ task_path }}/tk_install_software.yml'
+
+- name: INSTALL Mode Install // 15 Min Timeout
+  ios_command:
+    commands: 
+      - '{{ install_cmd }}' # Need to account for prompts
+      - 'configure terminal'
+      - '{{ install_boot }}'
+  when: software_mode == 'install'
+  vars:
+    ansible_command_timeout: 900 # Timeout in seconds
+    
+- name: BUNDLE Mode Install // 15 Min Timeout
+  ios_command:
+    commands: 
+      - 'configure terminal'
+      - '{{ bundle_boot }}'
+  when: software_mode == 'bundle' and upgrade_mode == 'n'
+  vars:
+    ansible_command_timeout: 900 # Timeout in seconds
+
+- name: Upgrade from BUNDLE to INSTALL // 15 Min Timeout
+  ios_command:
+    commands: 
+      - '{{ bundle_cmd }}' # Need to account for prompts
+      - 'configure terminal'
+      - '{{ install_boot }}'
+  when: software_mode == 'bundle' and upgrade_mode == 'y'
+  vars:
+    ansible_command_timeout: 900 # Timeout in seconds
+
+- name: NXOS Device // 15 Min Timeout
+  nxos_command:
+    commands: 
+      - '{{ nxos_cmd }}' # Need to account for prompts
+      - 'configure terminal'
+      - '{{ nxos_boot }}'
+  when: software_mode == 'nxos'
+  vars:
+    ansible_command_timeout: 900 # Timeout in seconds

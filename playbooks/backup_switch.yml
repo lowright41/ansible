@@ -1,0 +1,43 @@
+# filename - backup_switch.yml
+# @author [Lucien Wright]
+# @create date [01-13-2022]
+# @desc [Automation - Backup Cisco Switches]
+
+---
+- hosts: all
+
+  tasks:
+   - name: backup config
+     ios_command:
+       commands: show run
+     register: config
+ 
+   - name: Save output to CMI Backup folder
+     copy:
+       content: "{{ config.stdout[0] }}"
+       dest: /media/cmiNet/{{ ansible_net_hostname }}.txt
+      #  dest: /etc/ansible/backups/{{ ansible_net_hostname }}.txt
+      #  dest: /media/netAdmin/{{ ansible_net_hostname }}.txt
+
+
+
+# - hosts: nxos
+
+#   tasks:
+#    - name: backup config
+#      nxos_command:
+#        commands: show run
+#      register: config
+
+#    - name: Save output to CMI Backup folder
+#      copy:
+#        content: "{{ config.stdout[0] }}"
+#       #  dest: /media/netAdmin/{{ ansible_net_hostname }}.txt
+#        dest: /media/cmiNet/{{ ansible_net_hostname }}.txt
+#       #  dest: /etc/ansible/backups/{{ ansible_net_hostname }}.txt
+
+# # Note:
+# # /media/cmiNet is mapped directly to our share drive backup folder at:
+# # \\192.168.50.202\IT Department\Network Administrator\Network Config Backups\CMI
+
+# #End of codes

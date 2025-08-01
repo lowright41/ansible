@@ -1,0 +1,15 @@
+---
+
+ansible_connection: network_cli
+ansible_network_os: aireos
+ansible_user: netadmin
+ansible_password: Kw@jIsHoT&$uNNy
+
+# Path Variables
+abs_path: '/etc/ansible' # Main path variable for referencing
+task_path: '{{ abs_path }}/tasks' # Path variable for task location
+config_path: '{{ abs_path }}/configurations' # Path variable for configuration location
+playbook_path: '{{ abs_path }}/playbooks' # Path variable for playbook location
+var_path: '{{ abs_path }}/vars' # Path variable for variable location
+report_path: '{{ abs_path }}/reports' # Path variable for report location
+server_path: '/media/cmiNet' # Path variable to fileserver

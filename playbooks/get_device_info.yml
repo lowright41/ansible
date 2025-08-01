@@ -1,0 +1,44 @@
+# filename - pb_backup_save_config.yml
+# @author [Lucien Wright]
+# @create date [04-11-2025]
+# @desc [Automation - Backup Cisco Switches]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_backup_save_config.yml
+
+---
+- name: Gather and export device info
+  hosts: all
+  gather_facts: no
+  vars:
+    # csv_path: "{{ server_path }}/reports"
+    csv_path: "{{ server_path }}"
+    csv_headers: "hostname,serial,model,os_type,os_version"
+  tasks:
+    # - name: Collect facts (CLI only)
+    #   ansible.netcommon.cli_facts:
+
+    - name: Set custom fact variables
+      set_fact:
+        device_info:
+          hostname: "{{ inventory_hostname }}"
+          serial: "{{ ansible_facts.net_serial_number | default('N/A') }}"
+          model: "{{ ansible_facts.net_model | default('N/A') }}"
+          os_type: "{{ ansible_facts.net_os | default('N/A') }}"
+          os_version: "{{ ansible_facts.net_version | default('N/A') }}"
+      delegate_to: localhost
+
+    - name: Create CSV file with headers (if not exists)
+      copy:
+        dest: "{{ csv_path }}"
+        content: "{{ csv_headers }}\n"
+        force: no
+      delegate_to: localhost
+      run_once: true
+
+    - name: Append device info to CSV
+      lineinfile:
+        path: "{{ csv_path }}"
+        line: "{{ device_info.hostname }},{{ device_info.serial }},{{ device_info.model }},{{ device_info.os_type }},{{ device_info.os_version }}"
+        create: yes
+        insertafter: EOF
+      delegate_to: localhost

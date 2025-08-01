@@ -1,0 +1,22 @@
+# @author [Lucien Wright]
+# @create date [01-14-2022]
+# @desc [Automation - Pull Info from Switches]
+
+---
+- name: Network Getting Started First Playbook
+  hosts: all
+  tasks:
+
+    - name: Get config for IOS devices
+      ios_facts:
+        gather_subset: all
+
+    - name: Display the config
+      debug:
+        msg: "{{ ansible_net_hostname }}"
+        msg: "{{ ansible_net_version }}"
+        msg: "{{ ansible_net_serialnum }}"
+        msg: "{{ ansible_net_model }}"
+#        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }} s/n is {{ ansible_net_serialnum }} model # is {{ ansible_net_model }}"
+
+# ansible all -c network_cli -m ios_facts -e ansible_network_os=ios --vault-id ansadmin@/etc/ansible/passwd/pw1

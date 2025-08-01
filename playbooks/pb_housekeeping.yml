@@ -1,0 +1,46 @@
+---
+- name: Housekeeping
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  order: sorted
+
+  tasks: 
+    # - name: Build SNMP String
+    #   set_fact:
+    #     location_snmp: 'IS: {{ island }}, BLDG: {{ building }}, RM: {{ room }}, RR: {{ rack_row }}, CAB: {{ cabinet }}, RU: {{ rack_unit }}, {{ asset_tag }} - LOGCAP-V ({{ group }})' 
+
+    # - name: IOS Section
+    #   block:
+    #     - name: Update SNMP Location 
+    #       ios_config: 
+    #         lines:
+    #           - snmp-server location {{ location_snmp }}
+              
+    #     - name: Save Running Config
+    #       ios_config:
+    #         save_when: changed
+
+    #   when: ansible_network_os == 'ios'
+
+    # - name: NXOS Section
+    #   block:
+    #     - name: Update SNMP Location
+    #       nxos_config: 
+    #         lines:
+    #           - snmp-server location {{ location_snmp }}
+              
+    #     - name: Save Running Config
+    #       nxos_config:
+    #         save_when: changed
+      
+    #   when: ansible_network_os == 'nxos'
+    
+    # - name: Include Task - Update SNMP Location
+    #   include_tasks: '{{ task_path }}/tk_update_snmp_location.yml'
+
+    # - name: Include Task - Update Hostname
+    #   include_tasks: '{{ task_path }}/tk_update_hostname.yml'
+
+    - name: Include Task - Update Banner
+      include_tasks: '{{ task_path }}/tk_update_banner.yml'

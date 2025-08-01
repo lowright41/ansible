@@ -1,0 +1,58 @@
+meck: # Island
+  hosts:
+    M5050-154-DIST03-SWI_90.230:
+      ansible_host: 192.168.90.230
+      building: "5050"
+      room: "154"
+      install_loc: "Need to gather"
+      asset_tag: "LCV2019046"
+
+    M5029-CLO-FIREST-SWI_90.232:
+      ansible_host: 192.168.90.232
+      building: "5029"
+      room: "Need to gather"
+      install_loc: "Closet"
+      asset_tag: "806661"
+
+# Functional Grouping
+medical:
+  hosts:
+
+merchant:
+  hosts:
+
+school:
+  hosts:
+
+vectrus:
+  hosts:
+
+# Hardware Platform Grouping
+c1000:
+  hosts:
+    M5050-154-DIST03-SWI_90.230:
+
+c3560cx:
+  hosts:
+    M5029-CLO-FIREST-SWI_90.232:
+
+# Software Platform Grouping
+ios:
+  children:
+    c1000:
+    c2560x:
+    c3560cx:
+    c3560c405ex:
+
+iosxe:
+  children:
+    cat3k_caa:
+    cat4500e:
+    cat9k:
+    cat9k_lite:
+
+nxos:
+  children:
+    n7700:
+
+# Additional Grouping

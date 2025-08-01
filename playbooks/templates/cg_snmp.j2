@@ -1,0 +1,27 @@
+{# Have this setup to use variables in the group_vars/all/main.yml file, you could pull them out of the group_vars/all/main.yml and insert them back in here #}
+
+!
+no snmp-server
+!
+snmp-server view {{ snmp_read_view }} iso included
+snmp-server view {{ snmp_write_view }} iso included
+snmp-server group {{ snmp_read_group }} v3 priv read {{ snmp_read_view }}
+snmp-server group {{ snmp_write_group }} v3 priv write {{ snmp_write_view }}
+snmp-server user {{ snmp_read_user }} {{ snmp_read_group }} v3 auth sha {{ snmp_auth }} priv aes 256 {{ snmp_priv }}
+snmp-server user {{ snmp_write_user }} {{ snmp_write_group }} v3 auth sha {{ snmp_auth }} priv aes 256 {{ snmp_priv }}
+snmp-server trap-source {{ management_interface }}
+snmp-server source-interface informs {{ management_interface }}
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps transceiver all
+snmp-server enable traps tty
+snmp-server enable traps entity
+snmp-server enable traps cpu threshold
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps envmon fan shutdown supply temperature status
+snmp-server enable traps port-security
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps errdisable

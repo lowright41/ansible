@@ -1,0 +1,9 @@
+# Include Task
+# - name: Include Task - Reboot Device
+#   include_tasks: '{{ task_path }}/tk_reboot_device.yml'
+
+- name: Rebooting Device
+  cli_command:
+    command: reload
+    prompt: '.*\[confirm\]|confirm'
+    answer: ''

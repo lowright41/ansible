@@ -1,0 +1,25 @@
+---
+- name: "Demonstrate connecting to switches"
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    ###
+    # Collect data
+    ###
+    - name: Gather facts (nxos)
+      nxos_facts:
+      when: ansible_network_os == 'nxos'
+
+    - name: Gather facts (ios)
+      ios_facts:
+      when: ansible_network_os == 'ios'
+
+    ###
+    # Demonstrate variables
+    ###
+    - name: Display some facts
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
+
+# https://docs.ansible.com/ansible/2.9/network/user_guide/network_best_practices_2.5.html

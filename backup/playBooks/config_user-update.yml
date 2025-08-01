@@ -1,0 +1,58 @@
+# filename - config_user-update.yml
+# @author [Lucien Wright]
+# @create date [01-13-2022]
+# @desc [Automation - Update/Add User(s) on Switches]
+
+---
+- hosts: cmiNet
+
+  tasks:
+
+    - name: Update user password
+      ios_user:
+        name: lucien.wright
+        privilege: 15
+        # type: 9
+        configured_password: LovePayton&Layla@876
+        # Note:
+        # instructions indicate that we should use "{{ new_password }}" for password.
+        # not the case. Simply type out pw
+        password_type: secret
+        update_password: always
+        state: present
+
+    # - name: Update user password
+    #   ios_user:
+    #     name: lucien.wright
+    #     privilege: 15
+    #     hashed_password:
+    #       type: 5
+    #       value: PaytoN72@12
+    #       # value: $9$Xqd8j2IUloOJnU$zShEdCW6q07eVeWd5k1.L5A6ramYbAXPAnoGLwBH07c    
+    #     update_password: always
+    #     state: present
+
+    # - name: Update user password
+    #   ios_user:
+    #     name: lucien.wright
+    #     privilege: 15
+    #     hashed_password:
+    #       type: 9
+    #       value: $14$V0Ih$cbilK6mt8tra8.$psXlNgGFnDw4i8LAJWlzYDJ/CwFBoeviF4kTTXGpx6I
+    #     update_password: always
+    #     state: present
+
+    # - name: Delete MULTIPLE users from Switches
+    #   ios_user:
+    #     aggregate:
+    #      - name: lucien.wright
+    #     #  - name: bruce.wynn
+    #     state: absent
+    #     # used present instead of absent to add new user 
+    #     # state: present
+
+    - name: Save the config when above task completes
+      ios_config:
+        save_when: always
+
+# https://docs.w3cub.com/ansible~2.9/modules/ios_user_module

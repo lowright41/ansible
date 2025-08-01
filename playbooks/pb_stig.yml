@@ -1,0 +1,49 @@
+---
+- name: STIG Remediation
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  order: sorted
+  
+  vars:
+    disruptive: 'n'
+
+  vars_prompt:
+    - name: 'disruptive'
+      prompt: 'Do you want to perform disruptive remediations? (y/n)'
+      default: 'n'
+      private: false
+  
+  tasks:
+    - name: Information Tasks
+      block:
+        - name: Include Task - Get Device Info
+          include_tasks: '{{ task_path }}/tk_get_device_info.yml'
+        
+        - name: Include Task - Get Directory
+          include_tasks: '{{ task_path }}/tk_get_directory.yml'
+      tags:
+        - always
+        
+    - name: STIG Remediation
+      block:
+        - name: Include Role - STIG Non-Disruptive
+          include_role:
+            name: stig_nondisruptive
+          tags:
+            - '{{ ansible_run_tags }}'
+
+        - name: Disruptive Remediations
+          block:
+            - name: Include Role - STIG Disruptive
+              include_role:
+                name: stig_disruptive
+          tags:
+            - '{{ ansible_run_tags }}'
+          when: disruptive == 'y'
+      when: ansible_run_tags is not search('all')
+    
+    - name: Missing Tags
+      debug:
+        msg: 'Please re-run and use the --tags command and list what STIGs you are wanting to apply. (ios_rtr, ios_sw, ios_l3sw, iosxe_rtr, iosxe_sw, iosxe_l3sw, nxos)'
+      when: ansible_run_tags is search('all')

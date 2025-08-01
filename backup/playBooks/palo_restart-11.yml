@@ -1,0 +1,21 @@
+---
+- name: Palo Alto Playbook
+  hosts: pa_1
+  gather_facts: false
+  connection: local
+
+  collections:
+    - paloaltonetworks.panos
+
+  vars:
+    palo_provider:
+      ip_address: '10.176.90.11'
+      api_key: LUFRPT01SnRCdkl6TVU5L0QrUDJsaWtPVnhIZDFDNUk9dGd6WXg5MG82SHpvMEl3Y3BZdlBZcGdTaHFNVENnV0NhcnIybFlwUzIzaTNRQmJFS0dnYWhxUnBNZEhkaDNVRw==
+
+      #curl -k -X GET 'https://10.176.x.x/api/?type=keygen&user=<username>&password=<password>'
+
+  tasks:
+  
+  - name: Get the system info
+    panos_restart:
+      provider: '{{ palo_provider }}'

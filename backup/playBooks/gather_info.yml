@@ -1,0 +1,42 @@
+# filename - gather_info.yml
+# @author [Lucien Wright]
+# @create date [03-11-2025]
+# @desc [Automation - Pull Info from Switches]
+
+---
+- name: Get info from Nexus
+  hosts: nxos
+  tasks:
+
+    - name: Get config for NXOS devices
+      nxos_facts:
+        gather_subset: all
+
+    - name: Display the config
+      debug:
+        # msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }} and the S/N is {{ ansible_net_serialnum }}"
+        # msg: "The hostname is {{ ansible_net_hostname }} and the S/N is {{ ansible_net_serialnum }}"
+        # msg: "The hostname is {{ ansible_net_hostname }} and the interface info {{ ansible_net_interfaces }}"
+        msg: "The hostname is {{ ansible_net_hostname }} and the Model is {{ ansible_net_model }}"
+
+# Basically the same config as above but specifically for the Catalyst switch(es)
+
+- name: Get info from Catalyst Switches
+#  connection: network_cli
+  gather_facts: false
+  hosts: all
+  tasks:
+
+    - name: Get config for IOS devices
+      ios_facts:
+        gather_subset: all
+
+    - name: Display the config
+      debug:
+        # msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }} and the S/N is {{ ansible_net_serialnum }}"
+        # msg: "The hostname is {{ ansible_net_hostname }} and the S/N is {{ ansible_net_serialnum }}"
+        # msg: "The hostname is {{ ansible_net_hostname }} and the interface info {{ ansible_net_interfaces }}"
+        msg: "The hostname is {{ ansible_net_hostname }} and the Model is {{ ansible_net_model }}"
+
+
+

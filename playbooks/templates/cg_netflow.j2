@@ -1,0 +1,37 @@
+{% if netflow == true %}
+!
+flow record NTARECORD
+ match ipv4 tos
+ match ipv4 protocol
+ match ipv4 source address
+ match ipv4 destination address
+{% if 'iosxe' in group_names %}
+ match interface input
+{% else %}
+ match transport source-port
+ match transport destination-port
+{% endif %}
+ collect interface output
+ collect counter bytes long
+ collect counter packets long
+{% if absolute_timestamp == true %}
+ collect timestamp absolute first
+ collect timestamp absolute last
+{% else %}
+ collect timestamp sys-uptime first
+ collect timestamp sys-uptime last
+{% endif %}
+!
+!
+flow exporter NTAEXPORTER
+ destination {{ netflow_server }}
+ transport udp 2055
+ template data timeout 60
+!
+!
+flow monitor NTAMONITOR
+ exporter NTAEXPORTER
+ cache timeout active 60
+ record NTARECORD
+!
+{% endif %}
