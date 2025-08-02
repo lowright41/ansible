@@ -1,9 +1,9 @@
-# filename - pb_finalize_upgrade.yml
+# filename - pb_upgrade-finalize.yml
 # @desc [Automation - Finalize IOS upgrade on Cisco Catalyst Switches]
 # @author [Lucien Wright]
 # @created [2025-05-30]
 # Recommended run command:
-# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_finalize_upgrade.yml 
+# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_upgrade-finalize.yml 
 
 ---
 - name: Finalize IOS Upgrade (Set Boot & Reload)

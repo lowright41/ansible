@@ -1,9 +1,9 @@
-# filename - pb_copy_ios.yml
+# filename - pb_upgrade-copy_ios.yml 
 # @desc [Automation - Copy IOS image to Cisco Catalyst Series Switches]
 # @author [Lucien Wright]
 # @created [2025-05-30]
 # Recommended run command:
-# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_copy_ios.yml 
+# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_upgrade-copy_ios.yml 
 
 ---
 - name: Copy IOS to switches (with MD5 check)
