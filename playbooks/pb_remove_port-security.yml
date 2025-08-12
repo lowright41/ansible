@@ -1,0 +1,49 @@
+# filename - pb_remove_port-security.yml
+# @desc [Automation - Copy IOS image to Cisco Catalyst Series Switches and/then Reboots to Finalize Upgrade]
+# @author [Adam Jameel]
+# @created [2025-08-12]
+# Recommended run command:
+# ansible-playbook -i inventories/mysql_inventory.py --limit 'all' -f 40 playbooks/pb_remove_port-security.yml
+
+---
+- name: Remove port security and sticky MAC from VLAN 15 interfaces
+  hosts: all
+  gather_facts: false
+  connection: network_cli
+  collections:
+    - cisco.ios
+
+  tasks:
+    - name: Gather L2 interface configuration (structured)
+      cisco.ios.ios_l2_interfaces:
+        state: gathered
+      register: l2
+
+    - name: Build list of VLAN 15 access ports (no trunks, no regex)
+      set_fact:
+        vlan15_access_ports: >-
+          {{
+            l2.gathered | default([])
+            | selectattr('mode', 'defined')
+            | selectattr('mode', 'equalto', 'access')
+            | selectattr('access', 'defined')
+            | selectattr('access.vlan', 'defined')
+            | selectattr('access.vlan', 'in', [15, '15'])
+            | map(attribute='name')
+            | list
+          }}
+
+    - debug:
+        var: vlan15_access_ports
+
+    - name: Remove port security and sticky MAC from VLAN 15 access ports
+      ios_config:
+        lines:
+          - no switchport port-security
+          - no switchport port-security mac-address sticky
+        parents: "interface {{ item }}"
+      loop: "{{ vlan15_access_ports }}"
+      when: vlan15_access_ports | length > 0
+
+    - name: Include Task - Write Config
+      include_tasks: '{{ task_path }}/tk_write_config.yml'

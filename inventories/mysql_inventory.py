@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# mysql_inventory.py
+
 
 import yaml
 import mysql.connector
@@ -28,7 +30,22 @@ def fetch_inventory():
     )
     cursor = conn.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM net")
+    # cursor.execute("SELECT * FROM net")
+    cursor.execute("""
+        SELECT
+          device,
+          ip,
+          role,
+          network,
+          site,
+          platform,
+          vendor,
+          os_type,
+          os_ver,
+          origin,
+          enclave
+        FROM net
+    """)
     rows = cursor.fetchall()
 
     inventory = {
@@ -59,6 +76,7 @@ def fetch_inventory():
         os_type = str(row.get('os_type', '')).strip().lower()
         os_ver = str(row.get('os_ver', '')).strip().lower()
         origin = str(row.get('origin', '')).strip().lower()
+        enclave  = str(row.get('enclave', '')).strip().lower()  # <-- NEW
 
         # Create group entries dynamically
         for key in [
@@ -70,6 +88,8 @@ def fetch_inventory():
             f"os_type_{os_type}" if os_type else '',
             f"os_ver_{os_ver}" if os_ver else '',
             f"origin_{origin}" if origin else '',
+            f"enclave_{enclave}" if enclave else '',    # <-- NEW
+
         ]:
             if key:
                 groups.setdefault(key, {"hosts": []})["hosts"].append(hostname)
