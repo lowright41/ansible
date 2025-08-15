@@ -39,8 +39,8 @@
     - name: Remove port security and sticky MAC from VLAN 15 access ports
       ios_config:
         lines:
-          - no switchport port-security
-          - no switchport port-security mac-address sticky
+          - switchport port-security
+          - switchport port-security mac-address sticky
         parents: "interface {{ item }}"
       loop: "{{ vlan15_access_ports }}"
       when: vlan15_access_ports | length > 0

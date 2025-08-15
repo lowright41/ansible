@@ -1,0 +1,97 @@
+# filename - pb_sql_update.yml
+# @author [Lucien Wright]
+# @create date [05-17-2025]
+# @desc [Update SQL Inentory w/ Device Info]
+# Recommended run command: 
+# ansible-playbook -i ./inventories/ --limit 'all' -f 40 ./playbooks/pb_sql_update.yml
+
+---
+- name: Set hostname from DB for the limited devices
+  hosts: all                         # respects --limit
+  gather_facts: false
+  connection: network_cli
+  vars:
+    ansible_network_os: cisco.ios.ios
+  collections:
+    - cisco.ios
+    - community.mysql
+
+  tasks:
+    - name: Show who we think we are talking to (sanity)
+      debug:
+        msg:
+          host: "{{ inventory_hostname }}"
+          ansible_host: "{{ ansible_host | default(inventory_hostname) }}"
+
+    - name: Look up desired hostname for this device (by IP or current name)
+      community.mysql.mysql_query:
+        login_host:     "{{ mysql_host }}"
+        login_port:     "{{ mysql_port | default(3306) }}"
+        login_user:     "{{ mysql_user }}"
+        login_password: "{{ mysql_password }}"
+        login_db:       "{{ mysql_db }}"
+        query: >-
+          SELECT device
+          FROM net
+          WHERE device IS NOT NULL AND TRIM(device) <> ''
+            AND (
+                  LOWER(ip) = LOWER('{{ ansible_host | default(inventory_hostname) }}')
+               OR LOWER(device) = LOWER('{{ inventory_hostname }}')
+                )
+          LIMIT 1;
+      register: dbrow
+      delegate_to: localhost
+
+    # Robustly pull 'device' from mysql_query return, whatever its shape
+    - name: Extract desired hostname
+      set_fact:
+        desired_hostname_raw: >-
+          {{
+            (
+              dbrow.query_result
+              | default([])         | first      | default([])     # -> inner list
+              | first               | default({})                  # -> first row dict
+            ).device | default('')
+          }}
+
+    - name: Show DB lookup result (only when empty)
+      debug:
+        var: dbrow
+      when: desired_hostname_raw | length == 0
+
+    - name: Fail if no matching DB row was found for this host
+      fail:
+        msg: >-
+          No hostname found in DB for host '{{ inventory_hostname }}' (IP: {{ ansible_host | default(inventory_hostname) }}).
+          Check table 'net' columns ip/device and casing.
+      when: desired_hostname_raw | length == 0
+
+    # Optional: sanitize to Cisco-safe hostname (letters/digits/hyphens)
+    - name: Build Cisco-safe hostname
+      set_fact:
+        desired_hostname: >-
+          {{
+            desired_hostname_raw
+            | regex_replace('[^A-Za-z0-9-]', '-')
+            | regex_replace('^-+','')
+            | regex_replace('-+$','')
+            | regex_replace('-+','-')
+          }}
+
+    - name: Validate hostname shape
+      assert:
+        that:
+          - desired_hostname | length > 0
+          - desired_hostname | length <= 63
+          - desired_hostname is match('^[A-Za-z0-9]([-A-Za-z0-9]*[A-Za-z0-9])?$')
+        fail_msg: "Invalid hostname from DB: '{{ desired_hostname_raw }}' -> '{{ desired_hostname }}'"
+
+    - name: Apply hostname (idempotent)
+      cisco.ios.ios_system:
+        hostname: "{{ desired_hostname }}"
+      register: sys
+
+    - name: Save config if changed
+      cisco.ios.ios_command:
+        commands: write memory
+      when: sys.changed
